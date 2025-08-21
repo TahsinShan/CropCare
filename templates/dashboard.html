@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Plant Guardian</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">🌱 Plant Guardian</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/history">History</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome, {{ current_user.username }}!</h1>
+      <p>Recent Plant Health Overview:</p>
+
+      <canvas id="dashboardChart" width="400" height="200"></canvas>
+
+      <div class="upload-section">
+        <h2>Upload a New Plant Photo:</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <input type="file" name="plant_image" required>
+          <button type="submit">Analyze Plant</button>
+        </form>
+      </div>
+
+      <script>
+        const ctx = document.getElementById('dashboardChart').getContext('2d');
+        const dashboardChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: {{ dates|tojson }},
+            datasets: [{
+              label: 'Plant Health (1=Healthy, 0=Diseased)',
+              data: {{ results_numeric|tojson }},
+              backgroundColor: {{ colors|tojson }},
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: { y: { beginAtZero: true, max: 1 } }
+          }
+        });
+      </script>
+    </div>
+  </section>
+</body>
+</html>

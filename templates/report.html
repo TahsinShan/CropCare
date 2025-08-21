@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plant Report - Plant Guardian</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">🌱 Plant Guardian</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/history">History</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Detailed Report</h1>
+
+    <div class="report-card">
+  <p><strong>Date:</strong> {{ report['date'] }}</p>
+  <p><strong>Disease:</strong> {{ report['disease'] }}</p>
+  <p><strong>Severity:</strong> {{ report['severity'] }}</p>
+  <p><strong>Remedy:</strong> {{ report['remedy'] }}</p>
+
+  {% if report['photo'] %}
+    <p><strong>Photo:</strong></p>
+    <img src="{{ url_for('static', filename='uploads/' ~ report['photo']) }}" 
+         class="report-img">
+  {% else %}
+    <p><em>No photo available</em></p>
+  {% endif %}
+</div>
+  </section>
+</body>
+</html>

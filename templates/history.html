@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History - Plant Guardian</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">🌱 Plant Guardian</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/history">History</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Plant Health History</h1>
+
+      {% if history %}
+        <canvas id="historyChart" width="400" height="200"></canvas>
+
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Result</th>
+              <th>Photo</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+  {% for record in history %}
+  <tr>
+    <td>{{ record['date'] }}</td>
+    <td>{{ record['disease'] }} ({{ record['severity'] }})</td>
+    <td>
+      {% if record['photo'] %}
+        <img src="{{ url_for('static', filename='uploads/' ~ record['photo']) }}" class="thumb">
+      {% else %}
+        No photo
+      {% endif %}
+    </td>
+    <td>
+      <a href="{{ url_for('report', record_id=record['id']) }}" class="btn-small">View Report</a>
+    </td>
+  </tr>
+  {% endfor %}
+</tbody>
+
+        </table>
+
+        <script>
+          const ctx = document.getElementById('historyChart').getContext('2d');
+          const historyChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: ['Healthy', 'Diseased'],
+              datasets: [{
+                label: 'Plant Health Distribution',
+                data: {{ result_counts|tojson }},  // e.g. [5, 2]
+                backgroundColor: ['#4caf50', '#f44336']
+              }]
+            }
+          });
+        </script>
+      {% else %}
+        <p>No history yet. Upload some plant photos first!</p>
+      {% endif %}
+    </div>
+  </section>
+</body>
+</html>

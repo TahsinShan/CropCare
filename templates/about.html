@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Plant Guardian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+    <div class="logo">🌱 Plant Guardian</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      {% if current_user.is_authenticated %}
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="/login">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
+    <!-- About Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>About Plant Guardian</h1>
+            <p>
+                Plant Guardian is an innovative system that combines AI and IoT to help users monitor 
+                the health of their plants. Upload a photo of your plant and get instant health analysis.
+                Optionally, connect a soil sensor for more precise insights.
+            </p>
+            <p>
+                Our goal is to empower gardeners and farmers with easy-to-use technology, helping 
+                plants thrive and reduce crop loss. 🌱
+            </p>
+        </div>
+    </section>
+</body>
+</html>
