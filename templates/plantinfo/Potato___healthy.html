@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Potato healthy</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🥔 Healthy Potato Plant</h1>
+
+  <section class="card">
+    <h2>📖 Overview</h2>
+    <p>
+      A healthy potato plant demonstrates vigorous growth with strong stems, lush green leaves, and robust tuber development. When grown under ideal conditions, it resists common diseases and produces high-quality tubers with good yield.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>👀 Key Visual Features</h2>
+    <ul>
+      <li>Deep green, compound leaves with no discoloration, spots, or wilting</li>
+      <li>Sturdy, upright stems free of lesions or rot</li>
+      <li>Uniform, healthy foliage with no signs of insect damage</li>
+      <li>Strong root and tuber formation beneath the soil</li>
+    </ul>
+    <img src="{{ url_for('static', filename='healthy_potato/healthy_plant.jpg') }}" alt="Healthy Potato Plant" style="max-width:100%; border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-top: 1rem;">
+  </section>
+
+  <section class="card">
+    <h2>🌤 Ideal Growing Conditions</h2>
+    <ul>
+      <li><strong>Soil:</strong> Well-drained, loose loam rich in organic matter (pH 5.0–6.5)</li>
+      <li><strong>Temperature:</strong> 16–24°C (60–75°F) during the growing season</li>
+      <li><strong>Sunlight:</strong> Full sun, at least 6 hours daily</li>
+      <li><strong>Water:</strong> Consistent moisture, especially during tuber formation; avoid waterlogging</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>💧 Nutrient Requirements</h2>
+    <p>
+      Healthy potato plants require balanced nutrients for foliage and tuber development:
+    </p>
+    <ul>
+      <li><strong>Nitrogen (N):</strong> Supports leafy growth in early stages</li>
+      <li><strong>Phosphorus (P):</strong> Crucial for root and tuber development</li>
+      <li><strong>Potassium (K):</strong> Enhances tuber size, quality, and disease resistance</li>
+      <li><strong>Calcium & Magnesium:</strong> Important for cell wall strength and enzyme functions</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>🌼 Flowering & Tuber Set</h2>
+    <p>
+      Potatoes produce small white, pink, or purple flowers signaling the start of tuber formation. Healthy flowering indicates good nutrient status and environmental conditions that support optimal tuber set.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>🥔 Tuber Quality Indicators</h2>
+    <div class="stage">
+      <img src="{{ url_for('static', filename='images/potato_healthy_tuber.jpg') }}" alt="Healthy Potato Tubers">
+      <p>Tubers should be firm, smooth, and free of cracks, blemishes, or green spots. Uniform size and shape indicate good growing conditions and minimal stress.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🛠 Maintenance Tips</h2>
+    <ul>
+      <li>Hill soil around stems to protect tubers from sunlight and prevent greening</li>
+      <li>Rotate crops annually to reduce soil-borne diseases</li>
+      <li>Mulch with straw or organic material to retain soil moisture and suppress weeds</li>
+      <li>Monitor regularly for pests like Colorado potato beetle and aphids, and manage early</li>
+      <li>Avoid mechanical damage during cultivation and harvest to prevent tuber bruising</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>🌱 Recommended Varieties</h2>
+    <ul>
+      <li><strong>‘Russet Burbank’:</strong> Widely grown with high yield and good storage quality</li>
+      <li><strong>‘Yukon Gold’:</strong> Versatile yellow-fleshed variety with excellent flavor</li>
+      <li><strong>‘Red Pontiac’:</strong> Red-skinned variety with good disease resistance</li>
+      <li><strong>‘Kennebec’:</strong> Popular for its high yield and fry quality</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>📚 Trusted Growing Resources</h2>
+    <ul>
+      <li><a href="https://extension.umn.edu/vegetables/growing-potatoes" target="_blank" rel="noopener noreferrer">University of Minnesota Extension: Growing Potatoes</a></li>
+      <li><a href="https://www.rhs.org.uk/plants/potatoes/grow-your-own" target="_blank" rel="noopener noreferrer">RHS: Grow Your Own Potatoes</a></li>
+      <li><a href="https://www.gardeningknowhow.com/edible/vegetables/potato" target="_blank" rel="noopener noreferrer">Gardening Know How: Potato Care Guide</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

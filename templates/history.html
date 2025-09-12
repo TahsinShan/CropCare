@@ -4,20 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>History - Plant Guardian</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">🌱 Plant Guardian</div>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/dashboard">Dashboard</a>
-      <a href="/history">History</a>
-      <a href="/logout">Logout</a>
+ <!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
     </nav>
-  </header>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
 
   <section class="hero">
     <div class="hero-content">

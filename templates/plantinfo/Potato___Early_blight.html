@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Potato Early blight</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🥔 Potato Early Blight</h1>
+
+  <section class="overview card">
+    <h2>📖 Overview</h2>
+    <p>
+      Early blight, caused by the fungus <em>Alternaria solani</em>, is a common and destructive foliar disease of potatoes. It thrives in warm, wet conditions and leads to dark leaf spots, defoliation, and reduced tuber yield and quality. Early blight can also affect stems and tubers, causing lesions and rot.
+    </p>
+  </section>
+
+  <section class="causes card">
+    <h2>🧬 Causes & Pathogen Biology</h2>
+    <p>
+      <strong><em>Alternaria solani</em></strong> survives in infected plant debris and soil. It produces spores called conidia that spread via wind, rain splash, and irrigation water. Infection occurs when spores land on moist leaf surfaces, germinate, and penetrate through stomata or wounds.
+    </p>
+    <p><strong>Optimal Spread Conditions:</strong></p>
+    <ul>
+      <li>Temperature: 24–29°C (75–85°F)</li>
+      <li>Relative Humidity: ≥ 85%</li>
+      <li>Leaf wetness duration: ≥ 6 hours</li>
+      <li>Periods of frequent rain or overhead irrigation</li>
+    </ul>
+  </section>
+
+  <section class="symptoms card">
+    <h2>🌡 Symptoms & Diagnostic Clues</h2>
+    <ul>
+      <li>Dark brown to black, irregularly shaped leaf spots with concentric rings ("target" appearance)</li>
+      <li>Lesions often start on older, lower leaves and progress upward</li>
+      <li>Yellowing and premature leaf drop around infected spots</li>
+      <li>Stem lesions that are dark and sunken</li>
+      <li>Tuber infections causing rough, dark, sunken areas (black scurf)</li>
+      <li>Severe infections cause defoliation and reduced tuber yield</li>
+    </ul>
+  </section>
+
+  <section class="progression card">
+    <h2>📊 Disease Progression Stages</h2>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Potato_Early_blight/stage1.jpg') }}" alt="Stage 1">
+      <div>
+        <h3>Stage 1: Initial Infection</h3>
+        <p>Small, dark brown spots with faint concentric rings appear on older lower leaves. No stem or tuber symptoms yet.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Potato_Early_blight/stage2.jpg') }}" alt="Stage 2">
+      <div>
+        <h3>Stage 2: Moderate</h3>
+        <p>Lesions enlarge and coalesce, yellowing around spots increases. Some dark lesions visible on stems. Early signs of tuber infection may appear.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Potato_Early_blight/stage3.jpg') }}" alt="Stage 3">
+      <div>
+        <h3>Stage 3: Severe</h3>
+        <p>Extensive leaf necrosis and defoliation. Stem lesions widespread. Tubers show dark sunken lesions and rot. Yield and tuber quality severely affected.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="treatment card">
+    <h2>🛠 Treatments & Control Options</h2>
+    <ul>
+      <li>Apply fungicides such as chlorothalonil, mancozeb, or strobilurins preventively or at early symptom onset</li>
+      <li>Rotate fungicides to reduce risk of resistance development</li>
+      <li>Remove and destroy infected plant debris to reduce inoculum sources</li>
+      <li>Ensure good field sanitation and crop rotation with non-host crops</li>
+      <li>Improve air circulation by proper plant spacing and avoid overhead irrigation</li>
+    </ul>
+  </section>
+
+  <section class="prevention card">
+    <h2>🌿 Cultural Prevention Techniques</h2>
+    <ul>
+      <li>Practice crop rotation with non-host crops for at least 2–3 years</li>
+      <li>Use certified disease-free seed potatoes</li>
+      <li>Hill soil around plants to protect tubers from sunlight and disease</li>
+      <li>Maintain balanced fertilization to promote healthy plants</li>
+      <li>Regularly remove volunteer potato plants and weeds that may harbor the pathogen</li>
+    </ul>
+  </section>
+
+  <section class="monitoring card">
+    <h2>📅 Early Detection & Monitoring</h2>
+    <p>
+      Scout lower leaves weekly during warm, humid weather. Look for characteristic target-shaped leaf spots. Monitor weather conditions to anticipate periods favorable for disease development and time fungicide applications accordingly.
+    </p>
+  </section>
+
+  <section class="resources card">
+    <h2>📚 Scientific Resources</h2>
+    <ul>
+      <li><a href="https://extension.umn.edu/diseases/potato-early-blight" target="_blank" rel="noopener noreferrer">University of Minnesota Extension: Potato Early Blight</a></li>
+      <li><a href="https://vegetablemdonline.ppath.cornell.edu/factsheets/Potato_Early_Blight.htm" target="_blank" rel="noopener noreferrer">Cornell Vegetable MD Online: Early Blight</a></li>
+      <li><a href="https://www.apsnet.org/edcenter/intropp/lessons/fungi/Pages/EarlyBlight.aspx" target="_blank" rel="noopener noreferrer">APSnet: Early Blight of Potato</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

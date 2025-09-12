@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Tomato Target Spot</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🍅 Tomato Target Spot</h1>
+
+  <section class="overview card">
+    <h2>📖 Overview</h2>
+    <p>
+      Target spot, caused by the fungus <em> Corynespora cassiicola</em>, is a common foliar disease of tomatoes that occurs in warm and humid climates. It can cause significant leaf spot lesions, defoliation, and yield loss. The disease may also infect stems and fruit, causing blemishes and quality reduction.
+    </p>
+  </section>
+
+  <section class="causes card">
+    <h2>🧬 Causes & Pathogen Biology</h2>
+    <p>
+      <strong><em>Corynespora cassiicola</em></strong> survives in plant debris and soil. It produces conidia (asexual spores) that are spread by wind and splashing water. Infection occurs when spores land on wet leaf surfaces and germinate, penetrating through stomata or wounds.
+    </p>
+    <p><strong>Optimal Spread Conditions:</strong></p>
+    <ul>
+      <li>Temperature: 24–30°C (75–86°F)</li>
+      <li>Relative Humidity: ≥ 90%</li>
+      <li>Leaf wetness duration: ≥ 8 hours</li>
+      <li>Frequent rainfall or overhead irrigation</li>
+    </ul>
+  </section>
+
+  <section class="symptoms card">
+    <h2>🌡 Symptoms & Diagnostic Clues</h2>
+    <ul>
+      <li>Distinctive brown, circular lesions with concentric rings ("target" appearance)</li>
+      <li>Lesions initially appear on lower leaves and expand upward</li>
+      <li>Leaf yellowing and premature leaf drop</li>
+      <li>Lesions may also appear on stems and green fruit, causing small, sunken spots</li>
+      <li>Severe infections lead to extensive defoliation and reduced yield</li>
+    </ul>
+  </section>
+
+  <section class="progression card">
+    <h2>📊 Disease Progression Stages</h2>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Target_spot/stage1.jpg') }}" alt="Stage 1">
+      <div>
+        <h3>Stage 1: Early Infection</h3>
+        <p>Small brown spots with faint concentric rings develop on lower leaves. No stem or fruit symptoms yet.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Target_spot/stage2.jpg') }}" alt="Stage 2">
+      <div>
+        <h3>Stage 2: Moderate</h3>
+        <p>Lesions enlarge, showing characteristic target-like rings. Yellowing and curling of leaves. Some lesions on stems may appear.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Target_spot/stage3.jpg') }}" alt="Stage 3">
+      <div>
+        <h3>Stage 3: Severe</h3>
+        <p>Extensive leaf necrosis and defoliation. Fruit spots visible causing cosmetic damage. Yield and fruit quality decline noticeably.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="treatment card">
+    <h2>🛠 Treatments & Control Options</h2>
+    <ul>
+      <li>Apply fungicides such as chlorothalonil, mancozeb, or strobilurin-class fungicides</li>
+      <li>Begin treatments preventively or at first signs of symptoms</li>
+      <li>Rotate fungicides to reduce risk of resistance development</li>
+      <li>Remove and destroy infected plant debris to reduce inoculum</li>
+      <li>Improve air circulation and avoid overhead irrigation</li>
+    </ul>
+  </section>
+
+  <section class="prevention card">
+    <h2>🌿 Cultural Prevention Techniques</h2>
+    <ul>
+      <li>Practice crop rotation with non-host plants for 2–3 years</li>
+      <li>Space plants adequately to improve airflow and reduce humidity</li>
+      <li>Use drip irrigation instead of overhead watering</li>
+      <li>Sanitize tools and greenhouse surfaces regularly</li>
+      <li>Remove volunteer tomato plants and weeds that may harbor the pathogen</li>
+    </ul>
+  </section>
+
+  <section class="monitoring card">
+    <h2>📅 Early Detection & Monitoring</h2>
+    <p>
+      Scout lower and mid canopy weekly during warm, humid conditions. Look for characteristic target-shaped lesions. Track weather data to anticipate periods of high risk and time fungicide applications accordingly.
+    </p>
+  </section>
+
+  <section class="resources card">
+    <h2>📚 Scientific Resources</h2>
+    <ul>
+      <li><a href="https://extension.psu.edu/target-spot-of-tomato" target="_blank" rel="noopener noreferrer">Penn State Extension: Target Spot of Tomato</a></li>
+      <li><a href="https://vegetablemdonline.ppath.cornell.edu/factsheets/Tomato_Target_Spot.htm" target="_blank" rel="noopener noreferrer">Cornell Vegetable MD Online: Target Spot</a></li>
+      <li><a href="https://www.apsnet.org/edcenter/intropp/lessons/fungi/Pages/TargetSpot.aspx" target="_blank" rel="noopener noreferrer">APSnet: Target Spot of Tomato</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

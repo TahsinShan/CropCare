@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Tomato Early blight</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🍅 Tomato Early Blight</h1>
+
+  <section class="overview card">
+    <h2>📖 Overview</h2>
+    <p>
+      Early blight, primarily caused by <em>Alternaria solani</em>, is a common foliar disease affecting tomatoes and potatoes. It is favored by warm, humid conditions and often leads to premature defoliation, reducing fruit quality and yield.
+    </p>
+  </section>
+
+  <section class="causes card">
+    <h2>🧬 Causes & Pathogen Biology</h2>
+    <p>
+      <strong><em>A. solani</em></strong> is a necrotrophic fungus that survives in plant debris and soil. It produces conidia (asexual spores) that are spread by wind, rain splash, and mechanical contact. Infection typically begins on older, lower leaves and progresses upward.
+    </p>
+    <p><strong>Optimal Spread Conditions:</strong></p>
+    <ul>
+      <li>Temperature: 24–29°C (75–85°F)</li>
+      <li>Relative Humidity: ≥ 90%</li>
+      <li>Leaf wetness > 8 hours promotes spore germination</li>
+    </ul>
+  </section>
+
+  <section class="symptoms card">
+    <h2>🌡 Symptoms & Diagnostic Clues</h2>
+    <ul>
+      <li>Brown concentric ring lesions (“target spots”) on lower leaves</li>
+      <li>Yellowing and defoliation starting from the bottom upward</li>
+      <li>Stem lesions at pruning or injury sites</li>
+      <li>Dark, sunken lesions on fruits near the stem end</li>
+    </ul>
+  </section>
+
+  <section class="progression card">
+    <h2>📊 Disease Progression Stages</h2>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Early_blight/stage1.jpg') }}" alt="Stage 1">
+      <div>
+        <h3>Stage 1: Initial</h3>
+        <p>Small dark spots on older leaves. Often unnoticed early on, especially in shaded lower canopy.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Early_blight/stage3.jpg') }}" alt="Stage 3">
+      <div>
+        <h3>Stage 2: Moderate</h3>
+        <p>Multiple leaves affected. Progressive defoliation from bottom to mid canopy. Early fruit sunscald risk increases.</p>
+      </div>
+    </div>
+
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Early_blight/stage5.jpg') }}" alt="Stage 5">
+      <div>
+        <h3>Stage 3: Severe</h3>
+        <p>Extensive defoliation, fruit lesions common. Reduced yield and marketability. Plant vigor severely compromised.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="treatment card">
+    <h2>🛠 Treatments & Control Options</h2>
+    <ul>
+      <li>Apply fungicides like mancozeb, chlorothalonil, or copper-based products at early signs</li>
+      <li>Begin treatment early in the season and reapply every 7–10 days during wet periods</li>
+      <li>Remove infected leaves and avoid working in fields while foliage is wet</li>
+      <li>Ensure adequate plant spacing and airflow</li>
+    </ul>
+  </section>
+
+  <section class="prevention card">
+    <h2>🌿 Cultural Prevention Techniques</h2>
+    <ul>
+      <li>Use crop rotation with non-solanaceous crops for 2–3 years</li>
+      <li>Choose resistant cultivars such as 'Iron Lady', 'Mountain Fresh Plus'</li>
+      <li>Mulch soil to reduce splash dispersal</li>
+      <li>Irrigate at the base, avoid overhead watering</li>
+      <li>Sanitize tools and equipment between rows</li>
+    </ul>
+  </section>
+
+  <section class="monitoring card">
+    <h2>📅 Early Detection & Monitoring</h2>
+    <p>
+      Conduct weekly inspections, especially after rain or high humidity events. Use field scouting forms and mobile apps like <a href="https://www.ipmtools.org" target="_blank" rel="noopener">IPM Tools</a> for tracking symptom spread.
+    </p>
+  </section>
+
+  <section class="resources card">
+    <h2>📚 Scientific Resources</h2>
+    <ul>
+      <li><a href="https://www.apsnet.org/edcenter/disandpath/fungalbasidio/pdlessons/Pages/EarlyBlight.aspx" target="_blank" rel="noopener noreferrer">APS: Early Blight of Tomato</a></li>
+      <li><a href="https://vegetablemdonline.ppath.cornell.edu/factsheets/Tomato_EarlyBlt.htm" target="_blank" rel="noopener noreferrer">Cornell Vegetable MD: Early Blight</a></li>
+      <li><a href="https://extension.umn.edu/diseases/early-blight-tomato" target="_blank" rel="noopener noreferrer">University of Minnesota Extension</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

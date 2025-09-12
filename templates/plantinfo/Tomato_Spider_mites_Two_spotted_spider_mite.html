@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Tomato Spider mites Two spotted spider mite</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🕷️ Tomato Two-Spotted Spider Mite</h1>
+
+  <section class="overview card">
+    <h2>📖 Overview</h2>
+    <p>
+      The two-spotted spider mite (<em>Tetranychus urticae</em>) is a common pest affecting tomato plants, especially under hot, dry conditions. These tiny arachnids feed on leaf tissue, causing stippling, leaf bronzing, and in severe cases, leaf drop and reduced yield.
+    </p>
+  </section>
+
+  <section class="causes card">
+    <h2>🧬 Causes & Pest Biology</h2>
+    <p>
+      <strong><em>Tetranychus urticae</em></strong> thrives in warm, dry environments. They reproduce rapidly, with populations building up quickly during hot weather. Mites feed by piercing leaf cells and sucking out contents, leading to damage.
+    </p>
+    <p><strong>Optimal Conditions for Spread:</strong></p>
+    <ul>
+      <li>Temperature: 27–32°C (80–90°F)</li>
+      <li>Low Relative Humidity: 40–60%</li>
+      <li>Dry, dusty conditions</li>
+      <li>High plant density and poor air circulation</li>
+    </ul>
+  </section>
+
+  <section class="symptoms card">
+    <h2>🌡 Symptoms & Diagnostic Clues</h2>
+    <ul>
+      <li>Fine stippling or speckling on upper leaf surfaces</li>
+      <li>Bronzed or yellowed leaves with a dry, dusty appearance</li>
+      <li>Presence of fine webbing on leaves and stems in heavy infestations</li>
+      <li>Leaf curling and premature leaf drop in severe cases</li>
+      <li>Reduced plant vigor and lower fruit yield</li>
+    </ul>
+  </section>
+
+  <section class="progression card">
+    <h2>📊 Pest Population & Damage Stages</h2>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Two-Spotted_Spider_Mite/stage1.jpg') }}" alt="Stage 1">
+      <div>
+        <h3>Stage 1: Early Infestation</h3>
+        <p>Small groups of mites on underside of lower leaves. Minor stippling visible. No webbing yet.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Two-Spotted_Spider_Mite/stage2.jpg') }}" alt="Stage 2">
+      <div>
+        <h3>Stage 2: Moderate Infestation</h3>
+        <p>Increased mite numbers, noticeable stippling and yellowing. Early webbing may appear on leaf undersides.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Two-Spotted_Spider_Mite/stage3.jpg') }}" alt="Stage 3">
+      <div>
+        <h3>Stage 3: Severe Infestation</h3>
+        <p>Heavy webbing covers leaves and stems. Extensive bronzing, leaf curling, and drop. Significant yield loss likely.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="treatment card">
+    <h2>🛠 Treatments & Control Options</h2>
+    <ul>
+      <li>Apply miticides such as abamectin, spiromesifen, or bifenthrin</li>
+      <li>Use insecticidal soaps or horticultural oils for early infestations</li>
+      <li>Introduce natural predators like predatory mites (<em>Phytoseiulus persimilis</em>)</li>
+      <li>Rotate chemical classes to prevent resistance buildup</li>
+      <li>Maintain proper irrigation and avoid plant stress</li>
+    </ul>
+  </section>
+
+  <section class="prevention card">
+    <h2>🌿 Cultural Prevention Techniques</h2>
+    <ul>
+      <li>Keep plants well-watered to reduce stress and susceptibility</li>
+      <li>Increase air circulation by proper spacing and pruning</li>
+      <li>Regularly clean greenhouse and tools to remove mites and eggs</li>
+      <li>Remove weeds and alternate hosts that harbor spider mites</li>
+      <li>Monitor dust levels and reduce dust accumulation</li>
+    </ul>
+  </section>
+
+  <section class="monitoring card">
+    <h2>📅 Early Detection & Monitoring</h2>
+    <p>
+      Inspect undersides of lower leaves weekly, especially during hot, dry periods. Use a hand lens to spot tiny mites and eggs. Record infestation levels and apply control measures promptly to prevent outbreaks.
+    </p>
+  </section>
+
+  <section class="resources card">
+    <h2>📚 Scientific Resources</h2>
+    <ul>
+      <li><a href="https://extension.psu.edu/two-spotted-spider-mite-on-tomato" target="_blank" rel="noopener noreferrer">Penn State Extension: Two-Spotted Spider Mite</a></li>
+      <li><a href="https://vegento.cahnr.uconn.edu/factsheets/two_spotted_spider_mite.html" target="_blank" rel="noopener noreferrer">UConn Vegetable Entomology: Two-Spotted Spider Mite</a></li>
+      <li><a href="https://ipm.ucanr.edu/PMG/r734300111.html" target="_blank" rel="noopener noreferrer">UC IPM: Two-Spotted Spider Mite Management</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

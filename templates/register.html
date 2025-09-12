@@ -1,38 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Plant Guardian</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Plant Guardian</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
-    <!-- Navbar -->
-    <header class="navbar">
-    <div class="logo">🌱 Plant Guardian</div>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
+<body class="register-body">
+ <!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
       {% if current_user.is_authenticated %}
-        <a href="/dashboard">Dashboard</a>
-        <a href="/logout">Logout</a>
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
       {% else %}
-        <a href="/login">Login</a>
+        <a href="/login">LOGIN</a>
       {% endif %}
     </nav>
-    </header>
 
-    <!-- Register Card -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Create Account</h2>
-            <form method="post" class="auth-form">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Register</button>
-            </form>
-            <p>Already have an account? <a href="/login">Login here</a></p>
-        </div>
-    </section>
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+
+<script src="static/script.js"></script>
+
+  <!-- Register Section -->
+  <section class="register-container">
+    <!-- Left: Logo -->
+    <div class="register-left">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+    </div>
+
+    <!-- Right: Form -->
+    <div class="register-right">
+      <h2>CROPCARE</h2>
+      <form method="post" class="register-form">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="/login">Login here</a></p>
+      <div class="social-register">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </section>
 </body>
 </html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Plant Guardian</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🌿 Healthy Tomato Plant</h1>
+
+  <section class="card">
+    <h2>📖 Overview</h2>
+    <p>
+      A healthy tomato plant exhibits vigorous growth, lush foliage, and consistent fruit production. When grown under optimal conditions, it can resist common diseases and yield flavorful, nutrient-rich tomatoes throughout the growing season.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>👀 Key Visual Features</h2>
+    <ul>
+      <li>Dark green, upright leaves with no spots or curling</li>
+      <li>Sturdy, thick stems supporting the plant structure</li>
+      <li>Bright yellow flowers and uniform fruit clusters</li>
+      <li>No signs of pest damage or fungal infection</li>
+    </ul>
+    <img src="{{ url_for('static', filename='healthy_tomato/healthy_plant.jpg') }}" alt="Healthy Tomato Plant" style="max-width:100%; border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-top: 1rem;">
+  </section>
+
+  <section class="card">
+    <h2>🌤 Ideal Growing Conditions</h2>
+    <ul>
+      <li><strong>Soil:</strong> Loamy, well-drained with organic matter (pH 6.0–6.8)</li>
+      <li><strong>Temperature:</strong> 21–27°C (70–80°F) during the day</li>
+      <li><strong>Sunlight:</strong> 6–8 hours of full sun daily</li>
+      <li><strong>Water:</strong> Deep watering 2–3 times weekly; avoid wetting leaves</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>💧 Nutrient Requirements</h2>
+    <p>
+      Healthy tomato plants require a balanced supply of macronutrients and micronutrients:
+    </p>
+    <ul>
+      <li><strong>Nitrogen (N):</strong> For healthy foliage during early growth</li>
+      <li><strong>Phosphorus (P):</strong> Essential for root and flower development</li>
+      <li><strong>Potassium (K):</strong> Aids in fruiting and overall plant immunity</li>
+      <li><strong>Calcium & Magnesium:</strong> Prevent blossom-end rot and leaf yellowing</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>🐝 Pollination & Fruit Set</h2>
+    <p>
+      Tomatoes are self-pollinating, but natural pollinators like bees and bumblebees increase fruit set significantly. In greenhouses, gentle shaking of flowering stems or using an electric toothbrush simulates pollination effectively.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>🍅 Fruit Quality Indicators</h2>
+    <div class="stage">
+      <img src="{{ url_for('static', filename='images/tomato_healthy.jpg') }}" alt="Ripe Tomato">
+      <p>Fruits should be uniformly colored (red, orange, or yellow depending on variety), firm to the touch, and free from cracks, spots, or mold. A sweet smell at the stem end is a sign of ripeness.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🛠 Maintenance Tips</h2>
+    <ul>
+      <li>Use stakes, cages, or trellises to support plant growth</li>
+      <li>Prune side shoots (suckers) to improve airflow and reduce disease</li>
+      <li>Mulch with straw or leaves to maintain soil moisture</li>
+      <li>Rotate crops yearly to avoid soil-borne diseases</li>
+      <li>Inspect regularly for pests (aphids, whiteflies) and act early</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>🌱 Recommended Varieties</h2>
+    <ul>
+      <li><strong>‘Sun Gold’:</strong> Sweet cherry tomatoes with excellent disease resistance</li>
+      <li><strong>‘Celebrity’:</strong> Hybrid with good yield and strong stems</li>
+      <li><strong>‘Brandywine’:</strong> Heirloom favorite with exceptional flavor</li>
+      <li><strong>‘Mountain Magic’:</strong> Late blight resistant and crack resistant</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>📚 Trusted Growing Resources</h2>
+    <ul>
+      <li><a href="https://extension.umn.edu/vegetables/growing-tomatoes" target="_blank" rel="noopener noreferrer">University of Minnesota Extension: Growing Tomatoes</a></li>
+      <li><a href="https://www.rhs.org.uk/plants/tomatoes/grow-your-own" target="_blank" rel="noopener noreferrer">RHS: Grow Your Own Tomatoes</a></li>
+      <li><a href="https://www.gardeningknowhow.com/edible/vegetables/tomato" target="_blank" rel="noopener noreferrer">Gardening Know How: Tomato Care Guide</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

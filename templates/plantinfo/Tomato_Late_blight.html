@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Tomato Late blight</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🍅 Tomato Late Blight</h1>
+
+  <section class="overview card">
+    <h2>📖 Overview</h2>
+    <p>
+      Late blight, caused by the oomycete <em>Phytophthora infestans</em>, is a devastating disease of tomatoes and potatoes. It thrives under cool (15–20°C) and humid (>90% RH) conditions. Historically, it contributed to the Irish Potato Famine in the 1840s.
+    </p>
+  </section>
+
+  <section class="causes card">
+    <h2>🧬 Causes & Pathogen Biology</h2>
+    <p>
+      <strong><em>P. infestans</em></strong> is a water mold, not a true fungus. It produces sporangia and zoospores that are dispersed by wind or water. These infect plant tissues through stomata or wounds, causing necrosis and systemic spread.
+    </p>
+    <p><strong>Optimal Spread Conditions:</strong></p>
+    <ul>
+      <li>Temperature: 12–20°C (54–68°F)</li>
+      <li>Relative Humidity: ≥ 85%</li>
+      <li>Leaf wetness duration > 10 hours</li>
+    </ul>
+  </section>
+
+  <section class="symptoms card">
+    <h2>🌡 Symptoms & Diagnostic Clues</h2>
+    <ul>
+      <li>Dark brown, water-soaked lesions on lower leaves</li>
+      <li>Gray-white fuzzy mold under high humidity</li>
+      <li>Stem lesions may cause plant collapse</li>
+      <li>Brown to black firm lesions on green fruit</li>
+    </ul>
+  </section>
+
+  <section class="progression card">
+    <h2>📊 Disease Progression Stages</h2>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Late_blight/stage1.jpg') }}" alt="Stage 1">
+      <div>
+        <h3>Stage 1: Mild</h3>
+        <p>Small irregular dark spots on older foliage. May be mistaken for nutrient deficiency or minor damage.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Late_blight/stage2.jpg') }}" alt="Stage 2">
+      <div>
+        <h3>Stage 2: Moderate</h3>
+        <p>Lesions enlarge with yellow halos. Under humid conditions, white mold appears on undersides of leaves.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Late_blight/stage3.jpg') }}" alt="Stage 3">
+      <div>
+        <h3>Stage 3: Severe</h3>
+        <p>Widespread necrosis, fruit damage begins. Some branches show dieback. Spores can be found with hand lens.</p>
+      </div>
+    </div>
+
+
+
+  <section class="treatment card">
+    <h2>🛠 Treatments & Control Options</h2>
+    <ul>
+      <li>Remove infected tissues promptly to reduce inoculum.</li>
+      <li>Use copper-based fungicides or systemic options like chlorothalonil (if permitted).</li>
+      <li>Apply fungicides preventively during weather risk windows.</li>
+      <li>Maintain good leaf drying via drip irrigation and spacing.</li>
+    </ul>
+  </section>
+
+  <section class="prevention card">
+    <h2>🌿 Cultural Prevention Techniques</h2>
+    <ul>
+      <li>Practice 3–4 year crop rotation with non-host crops (e.g., corn, beans).</li>
+      <li>Use resistant cultivars like 'Mountain Magic', 'Defiant PhR'.</li>
+      <li>Clean tools with 10% bleach solution or alcohol.</li>
+      <li>Mulch to prevent rain splash and lower leaf wetness.</li>
+    </ul>
+  </section>
+
+  <section class="monitoring card">
+    <h2>📅 Early Detection & Monitoring</h2>
+    <p>
+      Monitor leaves weekly using a hand lens for early sporulation. Use forecasting tools (e.g., <a href="https://blightcast.net" target="_blank" rel="noopener">BlightCast</a>) to anticipate outbreaks.
+    </p>
+  </section>
+
+  <section class="resources card">
+    <h2>📚 Scientific Resources</h2>
+    <ul>
+      <li><a href="https://www.apsnet.org/edcenter/disandpath/oomycete/pdlessons/Pages/LateBlight.aspx" target="_blank" rel="noopener noreferrer">American Phytopathological Society: Late Blight</a></li>
+      <li><a href="https://www.extension.purdue.edu/extmedia/BP/BP-80-W.pdf" target="_blank" rel="noopener noreferrer">Purdue Extension: Late Blight PDF</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

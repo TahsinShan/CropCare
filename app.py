@@ -1,4 +1,6 @@
 import os
+import sys
+import json
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -6,25 +8,109 @@ import sqlite3
 from datetime import datetime
 from werkzeug.utils import secure_filename
 
+
+ESP32_BASE_URL = "http://192.168.0.105"  # Or use your ESP32's IP
+
+
+
+import requests
+
+def get_soil_moisture():
+    try:
+        response = requests.get(f"{ESP32_BASE_URL}/moisture", timeout=5)
+        data = response.json()
+        raw = int(data["raw"])  # get raw ADC value
+        
+        # Convert raw ADC to percentage here
+        dry_value = 4095
+        wet_value = 1800
+        
+        # Clamp raw value
+        raw = max(min(raw, dry_value), wet_value)
+        
+        moisture_percent = 100.0 * (dry_value - raw) / (dry_value - wet_value)
+        moisture_percent = max(0, min(moisture_percent, 100))  # safety clamp
+        
+        return moisture_percent
+
+    except Exception as e:
+        print(f"Error getting soil moisture: {e}")
+        return None
+
+
+def start_watering():
+    try:
+        response = requests.post(f"{ESP32_BASE_URL}/start_pump", timeout=5)
+        return response.status_code == 200
+    except Exception as e:
+        print(f"Error starting watering: {e}")
+        return False
+
+# Moisture levels per condition
+ideal_moisture_levels = {
+    "Tomato_healthy": 75,
+    "Tomato_Early_blight": 50,
+    "Tomato_Late_blight": 55,
+    "Tomato_Leaf_Mold": 60,
+    "Tomato_Septoria_leaf_spot": 55,
+    "Tomato_Spider_mites_Two_spotted_spider_mite": 50,
+    "Tomato__Target_Spot": 55,
+    "Tomato__Tomato_YellowLeaf__Curl_Virus": 45,
+    "Tomato__Tomato_mosaic_virus": 50,
+    "Tomato_Bacterial_spot": 50,
+    "Potato___healthy": 70,
+    "Potato___Early_blight": 55,
+    "Potato___Late_blight": 60,
+    "Pepper__bell___healthy": 70,
+    "Pepper__bell___Bacterial_spot": 55,
+    "PlantVillage": 65  
+}
+
+
+remedies = {
+    "Tomato_healthy": "Your plant is healthy. Maintain regular watering and monitor for early signs of disease.",
+    "Tomato_Early_blight": "Remove affected leaves. Use fungicides containing chlorothalonil or copper. Rotate crops yearly.",
+    "Tomato_Late_blight": "Remove and destroy infected plants. Apply copper-based fungicides. Avoid overhead watering.",
+    "Tomato_Leaf_Mold": "Improve air circulation. Use fungicides like mancozeb. Remove infected leaves.",
+    "Tomato_Septoria_leaf_spot": "Remove lower leaves. Use fungicides like chlorothalonil. Avoid wetting leaves.",
+    "Tomato_Spider_mites_Two_spotted_spider_mite": "Spray with insecticidal soap or neem oil. Increase humidity around plants.",
+    "Tomato__Target_Spot": "Use preventive fungicides. Remove infected leaves. Practice crop rotation.",
+    "Tomato__Tomato_YellowLeaf__Curl_Virus": "Control whiteflies. Remove infected plants. Use resistant varieties.",
+    "Tomato__Tomato_mosaic_virus": "Remove infected plants. Disinfect tools. Avoid smoking near plants.",
+    "Tomato_Bacterial_spot": "Apply copper-based bactericides. Remove infected plants. Avoid overhead irrigation.",
+    "Potato___healthy": "Plant is healthy. Maintain consistent care and regular checks for disease.",
+    "Potato___Early_blight": "Use fungicides like chlorothalonil. Rotate crops. Remove infected debris.",
+    "Potato___Late_blight": "Apply copper-based fungicides. Destroy infected plants. Ensure good drainage.",
+    "Pepper__bell___healthy": "Keep soil well-drained. Monitor for signs of pest or disease. Water consistently.",
+    "Pepper__bell___Bacterial_spot": "Use copper-based bactericides. Remove infected leaves. Avoid wet foliage.",
+    "PlantVillage": "General advice: Maintain good hygiene, proper spacing, and monitor moisture regularly."
+}
+
+
+
+
+
 # AI imports
 from tensorflow.keras.models import load_model
 from PIL import Image
 import numpy as np
 
+# Force UTF-8 encoding for Windows console
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
+
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # change in real project
+app.secret_key = "supersecretkey"  # change in production
 bcrypt = Bcrypt(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
-# Upload folder setup
+# Upload folder
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Allowed image extensions
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
@@ -52,7 +138,7 @@ def init_db():
 
 init_db()
 
-# User loader
+# User class
 class User(UserMixin):
     def __init__(self, id, username, password):
         self.id = id
@@ -70,55 +156,46 @@ def load_user(user_id):
         return User(row[0], row[1], row[2])
     return None
 
-# Load pretrained AI model
+# Load model and labels
 MODEL_PATH = "plant_disease_model.h5"
+LABELS_PATH = "labels.json"
+
 model = None
+labels = []
+
 try:
     model = load_model(MODEL_PATH)
     print("AI Model loaded successfully!")
 except Exception as e:
-    print(f"Warning: AI Model could not be loaded! {e}")
+    print(f"Warning: Could not load AI model! {e}")
 
-# Labels (adjust based on your model)
-labels = [
-    "Apple Scab",
-    "Apple Black Rot",
-    "Apple Healthy",
-    "Corn Gray Leaf Spot",
-    "Corn Common Rust",
-    "Tomato Early Blight",
-    "Tomato Late Blight",
-    "Tomato Healthy"
-]
+try:
+    with open(LABELS_PATH, "r", encoding="utf-8") as f:
+        labels = json.load(f)
+    print(f"Loaded {len(labels)} labels from {LABELS_PATH}")
+except Exception as e:
+    print(f"Warning: Could not load labels.json! {e}")
 
-# Remedies for diseases
-remedies = {
-    "Apple Scab": "Remove infected leaves. Use fungicides like Captan. Improve air circulation.",
-    "Apple Black Rot": "Prune affected branches. Apply copper-based fungicide.",
-    "Apple Healthy": "No issues detected. Maintain regular watering and sunlight.",
-    "Corn Gray Leaf Spot": "Rotate crops. Apply fungicide if severe.",
-    "Corn Common Rust": "Plant resistant varieties. Use fungicide if needed.",
-    "Tomato Early Blight": "Remove infected leaves. Apply chlorothalonil-based fungicide.",
-    "Tomato Late Blight": "Destroy infected plants. Apply fungicides containing mancozeb.",
-    "Tomato Healthy": "No disease detected. Keep soil moist and ensure good airflow."
-}
+
 
 # Prediction function
 def predict_plant_health(img_path):
-    if not model:
+    if not model or not labels:
         return "Unknown", "Model not loaded", 0.0
     img = Image.open(img_path).convert('RGB')
-    img = img.resize((224, 224))  # adjust to your model input size
+    img = img.resize((224, 224))
     x = np.array(img) / 255.0
     x = np.expand_dims(x, axis=0)
     preds = model.predict(x)
     idx = np.argmax(preds)
     disease = labels[idx]
-    confidence = preds[0][idx]
+    confidence = float(preds[0][idx])
     severity = "Mild" if confidence < 0.7 else "Severe"
     return disease, severity, confidence
 
-# Routes
+
+
+# ------------------- ROUTES -------------------
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -136,7 +213,7 @@ def register():
             conn.close()
             flash("Registration successful! Please login.", "success")
             return redirect(url_for("login"))
-        except:
+        except sqlite3.IntegrityError:
             flash("Username already exists!", "danger")
     return render_template("register.html")
 
@@ -154,8 +231,7 @@ def login():
             user = User(row[0], row[1], row[2])
             login_user(user)
             return redirect(url_for("dashboard"))
-        else:
-            flash("Invalid credentials!", "danger")
+        flash("Invalid credentials!", "danger")
     return render_template("login.html")
 
 @app.route("/about")
@@ -172,51 +248,42 @@ def dashboard():
     records = c.fetchall()
     conn.close()
 
-    # Prepare data for chart
     dates = [r["date"] for r in records]
-    results = [r["disease"] for r in records]  # using disease column
+    results_numeric = [1 if "healthy" in r["disease"].lower() else 0 for r in records]
+    colors = ["#4caf50" if val==1 else "#f44336" for val in results_numeric]
 
-    # Convert results into numeric form for chart (Healthy=1, Diseased=0)
-    results_numeric = [1 if "healthy" in r.lower() else 0 for r in results]
-    colors = ["#4caf50" if "healthy" in r.lower() else "#f44336" for r in results]
-
-    return render_template(
-        "dashboard.html",
-        history=records,
-        dates=dates,
-        results_numeric=results_numeric,
-        colors=colors
-    )
+    return render_template("dashboard.html", history=records, dates=dates, results_numeric=results_numeric, colors=colors)
 
 
-@app.route("/upload", methods=["POST"])
+@app.route("/upload", methods=["GET", "POST"])
 @login_required
 def upload():
+    if request.method == "GET":
+        return render_template("upload.html")
+
+    # POST logic stays the same
     if 'plant_image' not in request.files:
         flash("No file part", "danger")
-        return redirect(url_for("dashboard"))
+        return redirect(url_for("upload"))
 
     file = request.files['plant_image']
-
     if file.filename == '':
         flash("No selected file", "danger")
-        return redirect(url_for("dashboard"))
+        return redirect(url_for("upload"))
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         save_path = os.path.join(UPLOAD_FOLDER, filename)
         file.save(save_path)
 
-        # Predict using AI model
         disease, severity, confidence = predict_plant_health(save_path)
-        remedy = remedies.get(disease, "No remedy available.")
-        humidity = ""  # placeholder for sensor data
+        remedy = remedies.get(disease, "No specific remedy available.")
+        humidity = ""
 
-        # Save to database
         date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         conn = sqlite3.connect("plantguardian.db")
         c = conn.cursor()
-        c.execute("""INSERT INTO history (user_id, date, disease, severity, remedy, humidity, photo) 
+        c.execute("""INSERT INTO history (user_id, date, disease, severity, remedy, humidity, photo)
                      VALUES (?, ?, ?, ?, ?, ?, ?)""",
                   (current_user.id, date, disease, severity, remedy, humidity, filename))
         record_id = c.lastrowid
@@ -224,11 +291,12 @@ def upload():
         conn.close()
 
         return redirect(url_for("report", record_id=record_id))
-    else:
-        flash("Invalid file type! Only images allowed.", "danger")
-        return redirect(url_for("dashboard"))
 
-@app.route("/report/<int:record_id>")
+    flash("Invalid file type! Only images allowed.", "danger")
+    return redirect(url_for("upload"))
+
+
+@app.route("/report/<int:record_id>", methods=["GET", "POST"])
 @login_required
 def report(record_id):
     conn = sqlite3.connect("plantguardian.db")
@@ -237,11 +305,81 @@ def report(record_id):
     c.execute("SELECT * FROM history WHERE id=? AND user_id=?", (record_id, current_user.id))
     record = c.fetchone()
     conn.close()
+    
     if not record:
         flash("Report not found!", "danger")
         return redirect(url_for("dashboard"))
-    return render_template("report.html", report=record)
 
+    # Fetch current moisture
+    current_moisture = get_soil_moisture()
+
+    # Get ideal required moisture based on disease
+    disease_label = record["disease"]
+    required_moisture = ideal_moisture_levels.get(disease_label, 65)
+
+    # Handle watering request
+    if request.method == "POST" and "water_now" in request.form:
+        success = start_watering()
+        if success:
+            flash("Pump started successfully!", "success")
+        else:
+            flash("Failed to start watering!", "danger")
+        return redirect(url_for("report", record_id=record_id))
+
+    return render_template("report.html", 
+                           report=record, 
+                           current_moisture=current_moisture,
+                           required_moisture=required_moisture)
+
+
+
+
+
+
+from flask import abort
+
+@app.route("/plantcare")
+@login_required
+def plantcare():
+    condition_pages = [
+  "Pepper__bell___Bacterial_spot",
+  "Pepper__bell___healthy",
+  "PlantVillage",
+  "Potato___Early_blight",
+  "Potato___Late_blight",
+  "Potato___healthy",
+  "Tomato_Bacterial_spot",
+  "Tomato_Early_blight",
+  "Tomato_Late_blight",
+  "Tomato_Leaf_Mold",
+  "Tomato_Septoria_leaf_spot",
+  "Tomato_Spider_mites_Two_spotted_spider_mite",
+  "Tomato__Target_Spot",
+  "Tomato__Tomato_YellowLeaf__Curl_Virus",
+  "Tomato__Tomato_mosaic_virus",
+  "Tomato_healthy"
+]
+    return render_template("plantcare.html", conditions=condition_pages)
+
+@app.route("/plantinfo/<condition_name>")
+@login_required
+def plant_info(condition_name):
+    try:
+        return render_template(f"plantinfo/{condition_name}.html")
+    except:
+        flash("Plant condition page not found!", "danger")
+        return redirect(url_for("plantcare"))
+
+
+
+
+        
+
+
+
+
+
+ 
 @app.route("/history")
 @login_required
 def history():
@@ -252,18 +390,11 @@ def history():
     records = c.fetchall()
     conn.close()
 
-    # Count Healthy vs Diseased
     healthy = sum(1 for r in records if "healthy" in r["disease"].lower())
     diseased = sum(1 for r in records if "healthy" not in r["disease"].lower())
     result_counts = [healthy, diseased]
 
-    return render_template(
-        "history.html",
-        history=records,
-        result_counts=result_counts
-    )
-
-
+    return render_template("history.html", history=records, result_counts=result_counts)
 
 @app.route("/logout")
 @login_required

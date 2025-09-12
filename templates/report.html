@@ -4,38 +4,253 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plant Report - Plant Guardian</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">🌱 Plant Guardian</div>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/dashboard">Dashboard</a>
-      <a href="/history">History</a>
-      <a href="/logout">Logout</a>
-    </nav>
-  </header>
+ <header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Detailed Report</h1>
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+
+<script>
+  
+  function toggleMenu() {
+    const menu = document.getElementById("navbarMenu");
+    menu.classList.toggle("active");
+  }
+  // Change navbar on scroll
+  window.addEventListener('scroll', function () {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 10) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+</script>
+ 
+
+<style>
+/* Container styling */
+.hero-content {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+/* Heading */
+.hero-content h1 {
+  font-size: 2.4rem;
+  margin-bottom: 30px;
+  color: #2e7d32;
+  font-weight: 600;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+/* Report Card */
+.report-card {
+  background: #f9f9f9;
+  padding: 25px 30px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  line-height: 1.7;
+}
+
+/* Text */
+.report-card p {
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.report-card h3 {
+  font-size: 1.2rem;
+  margin-top: 25px;
+  color: #2e7d32;
+}
+
+/* Image */
+.report-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-top: 15px;
+}
+
+/* Alerts */
+.text-success {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.text-danger {
+  color: #c62828;
+  font-weight: 500;
+}
+
+.text-warning {
+  color: #f9a825;
+  font-weight: 500;
+}
+
+/* Button */
+.btn-success {
+  background-color: #2e7d32;
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #1b5e20;
+}
+
+/* Responsive Text Centering */
+.text-center {
+  text-align: center;
+}
+
+/* Form margin */
+form.mt-3 {
+  margin-top: 20px;
+}
+
+/* Horizontal rule spacing */
+hr {
+  margin: 30px 0;
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+}
+
+
+.learn-link {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: #088e0f;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.learn-link:hover {
+  background-color: #07d912;
+}
+
+</style>
+
+
+
+
+
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="text-center">🌿 Plant Health Report</h1>
 
     <div class="report-card">
-  <p><strong>Date:</strong> {{ report['date'] }}</p>
-  <p><strong>Disease:</strong> {{ report['disease'] }}</p>
-  <p><strong>Severity:</strong> {{ report['severity'] }}</p>
-  <p><strong>Remedy:</strong> {{ report['remedy'] }}</p>
+      <h3>Details</h3>
+<!-- 📅 Report Information -->
+<p><strong>Date:</strong> {{ report['date'] }}</p>
+<p><strong>Disease Detected:</strong> {{ report['disease'].replace("_", " ") }}</p>
+<p><strong>Recommended Remedy:</strong> {{ report['remedy'] }}</p>
 
-  {% if report['photo'] %}
-    <p><strong>Photo:</strong></p>
-    <img src="{{ url_for('static', filename='uploads/' ~ report['photo']) }}" 
-         class="report-img">
+<p><strong>Learn More:</strong> 
+  <a class="learn-link" href="{{ url_for('plant_info', condition_name=report['disease']) }}" target="_blank">
+    🌱 View care guide for {{ report['disease'].replace("_", " ") }}
+  </a>
+</p>
+
+
+
+      <!-- 💧 Moisture Information -->
+<hr>
+<h3>💧 Soil Moisture</h3>
+
+<p><strong>Required Moisture:</strong> {{ required_moisture }}%</p>
+
+{% if current_moisture is not none %}
+  <p><strong>Current Moisture:</strong> {{ current_moisture }}%</p>
+
+  {% if current_moisture < required_moisture %}
+    <p class="text-danger">⚠️ Soil is too dry. Needs watering.</p>
+    <form method="post" class="mt-3">
+      <button type="submit" name="water_now" class="btn btn-success">
+        💧 Water Automatically
+      </button>
+    </form>
   {% else %}
-    <p><em>No photo available</em></p>
+    <p class="text-success">✅ Moisture level is sufficient. No watering needed.</p>
   {% endif %}
-</div>
-  </section>
+{% else %}
+  <p class="text-warning">⚠️ Could not read current soil moisture (ESP32 not connected?)</p>
+{% endif %}
+
+
+      <!-- 🖼️ Uploaded Image -->
+      <hr>
+      <h3>📸 Uploaded Image</h3>
+      {% if report['photo'] %}
+        <div style="text-align: center;">
+          <img src="{{ url_for('static', filename='uploads/' ~ report['photo']) }}"
+               alt="Uploaded plant image"
+               class="report-img">
+        </div>
+      {% else %}
+        <p><em>No photo available.</em></p>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+
 </body>
 </html>

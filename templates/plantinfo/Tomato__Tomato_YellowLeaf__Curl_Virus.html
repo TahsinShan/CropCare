@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Tomato YellowLeaf Curl Virus</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🍅 Tomato Yellow Leaf Curl Virus</h1>
+
+  <section class="overview card">
+    <h2>📖 Overview</h2>
+    <p>
+      Tomato Yellow Leaf Curl Virus (TYLCV) is a devastating viral disease transmitted by the whitefly <em>Bemisia tabaci</em>. It causes severe stunting, leaf curling, yellowing, and reduced fruit yield and quality. TYLCV is a major threat in warm climates worldwide.
+    </p>
+  </section>
+
+  <section class="causes card">
+    <h2>🧬 Causes & Pathogen Biology</h2>
+    <p>
+      <strong>Tomato Yellow Leaf Curl Virus (TYLCV)</strong> is a geminivirus transmitted persistently by the whitefly <em>Bemisia tabaci</em>. The virus survives in infected plants and is spread when whiteflies feed on healthy plants, introducing the virus into the phloem.
+    </p>
+    <p><strong>Optimal Spread Conditions:</strong></p>
+    <ul>
+      <li>Temperature: 25–35°C (77–95°F)</li>
+      <li>High whitefly populations</li>
+      <li>Warm, dry conditions favor whitefly activity</li>
+      <li>Presence of infected host plants or weeds</li>
+    </ul>
+  </section>
+
+  <section class="symptoms card">
+    <h2>🌡 Symptoms & Diagnostic Clues</h2>
+    <ul>
+      <li>Severe upward leaf curling and cupping</li>
+      <li>Leaf yellowing, especially along leaf margins and veins</li>
+      <li>Stunted growth and shortened internodes</li>
+      <li>Reduced flowering and fruit set</li>
+      <li>Small, malformed fruit with poor quality</li>
+    </ul>
+  </section>
+
+  <section class="progression card">
+    <h2>📊 Disease Progression Stages</h2>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Yellow_Leaf_Curl_Virus/stage1.jpg') }}" alt="Stage 1">
+      <div>
+        <h3>Stage 1: Early Infection</h3>
+        <p>Whiteflies present on young leaves. Initial mild yellowing and slight leaf curling start to appear.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Yellow_Leaf_Curl_Virus/stage2.jpg') }}" alt="Stage 2">
+      <div>
+        <h3>Stage 2: Moderate Infection</h3>
+        <p>Leaf curling becomes more pronounced with extensive yellowing. Plant growth slows and internodes shorten.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <img src="{{ url_for('static', filename='stages/Tomato_Yellow_Leaf_Curl_Virus/stage3.jpg') }}" alt="Stage 3">
+      <div>
+        <h3>Stage 3: Severe Infection</h3>
+        <p>Severe stunting and leaf deformation. Flowering and fruit production drastically reduced. Fruit that develops is small and malformed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="treatment card">
+    <h2>🛠 Treatments & Control Options</h2>
+    <ul>
+      <li>Manage whitefly populations with insecticides such as neonicotinoids or insect growth regulators</li>
+      <li>Use reflective mulches to repel whiteflies</li>
+      <li>Remove and destroy infected plants to reduce virus sources</li>
+      <li>Implement insect-proof screens in greenhouses</li>
+      <li>Grow resistant or tolerant tomato varieties where available</li>
+    </ul>
+  </section>
+
+  <section class="prevention card">
+    <h2>🌿 Cultural Prevention Techniques</h2>
+    <ul>
+      <li>Practice crop rotation with non-host plants</li>
+      <li>Maintain good weed control to reduce alternate virus hosts</li>
+      <li>Use yellow sticky traps to monitor and reduce whitefly populations</li>
+      <li>Sanitize tools and greenhouse structures regularly</li>
+      <li>Space plants adequately to reduce whitefly spread</li>
+    </ul>
+  </section>
+
+  <section class="monitoring card">
+    <h2>📅 Early Detection & Monitoring</h2>
+    <p>
+      Monitor whitefly populations weekly using yellow sticky traps and visual scouting. Inspect young plants for early yellowing and leaf curling. Time insecticide applications based on whitefly activity to prevent virus transmission.
+    </p>
+  </section>
+
+  <section class="resources card">
+    <h2>📚 Scientific Resources</h2>
+    <ul>
+      <li><a href="https://extension.psu.edu/tomato-yellow-leaf-curl-virus" target="_blank" rel="noopener noreferrer">Penn State Extension: Tomato Yellow Leaf Curl Virus</a></li>
+      <li><a href="https://vegetablemdonline.ppath.cornell.edu/factsheets/Tomato_Yellow_Leaf_Curl_Virus.htm" target="_blank" rel="noopener noreferrer">Cornell Vegetable MD Online: TYLCV</a></li>
+      <li><a href="https://www.apsnet.org/edcenter/intropp/lessons/viruses/Pages/YellowLeafCurlVirus.aspx" target="_blank" rel="noopener noreferrer">APSnet: Tomato Yellow Leaf Curl Virus</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

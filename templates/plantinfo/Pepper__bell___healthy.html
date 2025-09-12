@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlantCare - Pepper bell healthy</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='plantinfo.css') }}">
+
+
+  
+</head>
+<body>
+  
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <!-- Left side: Logo -->
+  <div class="navbar-left">
+  <a href="/" class="logo">
+    <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
+    <span class="logo-text">CROPCARE</span>
+  </a>
+</div>
+
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" onclick="toggleMenu()">
+    &#9776;
+  </div>
+
+  <!-- Right side: Nav + User Icon -->
+  <div class="navbar-right" id="navbarMenu">
+    <nav class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/about">ABOUT</a>
+      {% if current_user.is_authenticated %}
+        <a href="/upload">DIAGNOSE</a>
+        <a href="/plantcare">PLANTCARE</a>
+        <a href="/techniques">TECHNIQUES</a>
+      {% else %}
+        <a href="/login">LOGIN</a>
+      {% endif %}
+    </nav>
+
+    {% if current_user.is_authenticated %}
+      <a href="/dashboard" class="user-icon" title="Dashboard">
+        <img src="/static/user-logo.png" alt="User Dashboard" />
+      </a>
+    {% endif %}
+  </div>
+</header>
+<script src="static/script.js"></script>
+
+
+
+
+<div class="container">
+  <h1>🫑 Healthy Bell Pepper Plant</h1>
+
+  <section class="card">
+    <h2>📖 Overview</h2>
+    <p>
+      A healthy bell pepper plant displays robust growth, deep green foliage, and consistent fruit production. Under ideal growing conditions, the plant resists common pests and diseases, producing crisp, sweet peppers with rich color and flavor.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>👀 Key Visual Features</h2>
+    <ul>
+      <li>Glossy, dark green leaves with smooth edges and no distortion</li>
+      <li>Strong central stem with symmetrical branching</li>
+      <li>Bright white to pale green flowers leading to firm fruit set</li>
+      <li>Peppers maturing uniformly in color (green, red, yellow, or orange)</li>
+      <li>No signs of wilt, leaf spots, or insect feeding</li>
+    </ul>
+    <img src="{{ url_for('static', filename='healthy_pepper/healthy_plant.jpg') }}" alt="Healthy Bell Pepper Plant" style="max-width:100%; border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-top: 1rem;">
+  </section>
+
+  <section class="card">
+    <h2>🌤 Ideal Growing Conditions</h2>
+    <ul>
+      <li><strong>Soil:</strong> Well-drained, loamy soil rich in organic matter (pH 6.0–6.8)</li>
+      <li><strong>Temperature:</strong> 21–29°C (70–85°F) during the day</li>
+      <li><strong>Sunlight:</strong> Minimum of 6–8 hours of full sun daily</li>
+      <li><strong>Water:</strong> Consistent moisture, 2–3 times weekly; avoid waterlogging</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>💧 Nutrient Requirements</h2>
+    <p>
+      Bell peppers thrive with a balanced supply of essential nutrients:
+    </p>
+    <ul>
+      <li><strong>Nitrogen (N):</strong> For strong vegetative growth</li>
+      <li><strong>Phosphorus (P):</strong> Promotes flowering and root development</li>
+      <li><strong>Potassium (K):</strong> Supports fruit quality and disease resistance</li>
+      <li><strong>Calcium:</strong> Essential to prevent blossom-end rot</li>
+      <li><strong>Magnesium & Sulfur:</strong> Important for photosynthesis and flavor</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>🐝 Pollination & Fruit Set</h2>
+    <p>
+      Bell peppers are self-pollinating but benefit from wind or insect activity (especially bees). In greenhouses, gentle tapping of flowering stems or using a soft brush improves pollination rates.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>🫑 Fruit Quality Indicators</h2>
+    <div class="stage">
+      <img src="{{ url_for('static', filename='images/pepper_healthy.jpg') }}" alt="Ripe Bell Pepper">
+      <p>Fruits should be glossy, firm, and have a uniform color. A full, blocky shape with thick walls and no wrinkles, spots, or soft areas indicates good health and ripeness.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🛠 Maintenance Tips</h2>
+    <ul>
+      <li>Stake or cage plants to support heavy fruit loads</li>
+      <li>Prune bottom leaves to enhance airflow and reduce disease risk</li>
+      <li>Mulch with straw or compost to conserve moisture</li>
+      <li>Rotate crops to prevent soil-borne pathogens</li>
+      <li>Inspect for common pests like aphids, whiteflies, and thrips</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>🌱 Recommended Varieties</h2>
+    <ul>
+      <li><strong>‘California Wonder’:</strong> Classic bell pepper with large, sweet fruits</li>
+      <li><strong>‘King Arthur’:</strong> Disease-resistant hybrid with early maturity</li>
+      <li><strong>‘Red Knight’:</strong> Vigorous plant with large blocky red fruit</li>
+      <li><strong>‘Islander’:</strong> Unique purple fruits that mature to red</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>📚 Trusted Growing Resources</h2>
+    <ul>
+      <li><a href="https://extension.umn.edu/vegetables/growing-peppers" target="_blank" rel="noopener noreferrer">University of Minnesota Extension: Growing Peppers</a></li>
+      <li><a href="https://www.rhs.org.uk/plants/peppers/grow-your-own" target="_blank" rel="noopener noreferrer">RHS: Grow Your Own Peppers</a></li>
+      <li><a href="https://www.gardeningknowhow.com/edible/vegetables/pepper" target="_blank" rel="noopener noreferrer">Gardening Know How: Pepper Growing Guide</a></li>
+    </ul>
+  </section>
+</div>
+
+
+
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+</body>
+</html>
