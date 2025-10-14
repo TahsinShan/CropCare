@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
-  
 </head>
 <body>
   
@@ -58,80 +57,240 @@
 <script src="static/script.js"></script>
 
 
-  <!-- Hero Section -->
-<section class="hero">
-  <div class="hero-text">
-    <h1 class="title">CROPCARE</h1>
-    <p class="subtitle">
-      YOUR TRUSTED PARTNER IN <br>
-      DIAGNOSING AND NURTURING <br>
-      PLANTS
+<!-- Hero Section -->
+<section class="new-home-hero animated">
+  <div class="text-content">
+    <h1>Smart Plant Care<br>Powered by AI & IoT</h1>
+    <p>
+      Diagnose plant diseases using AI-powered image recognition. Monitor real-time soil moisture with IoT. 
+      Get tailored remedies and watering recommendations to keep your plants healthy and thriving.
     </p>
+    <a href="/upload" class="get-started-btn">GET STARTED</a>
+  </div>
+  <div class="circle circle-green"></div>
+
+  <!-- Optional sparkles if needed later -->
+  <!-- <div class="sparkles">
+    <div class="sparkle sparkle--green" style="top: 15%; left: 10%; animation-delay: 0s;"></div>
+    <div class="sparkle sparkle--yellow" style="top: 35%; left: 25%; animation-delay: 1s;"></div>
+    <div class="sparkle sparkle--pink" style="top: 50%; left: 70%; animation-delay: 2s;"></div>
+    <div class="sparkle sparkle--blue" style="top: 60%; left: 80%; animation-delay: 3s;"></div>
+    <div class="sparkle sparkle--lavender" style="top: 80%; left: 40%; animation-delay: 4s;"></div>
+  </div> -->
+</section>
+
+
+
+<div class="circle circle-yellow"></div>
+
+<script>
+ window.addEventListener('DOMContentLoaded', () => {
+  const navbar = document.getElementById('navbar');
+  const heroSection = document.querySelector('.new-home-hero');
+
+  console.log('Current path:', window.location.pathname); // Debug
+
+  // Fallback: always apply animated class (for testing)
+  heroSection?.classList.add('animated');
+
+  // Your existing scroll logic
+  function handleScroll() {
+    if (window.scrollY > 10) {
+      navbar?.classList.add('scrolled');
+      navbar?.classList.remove('transparent');
+    } else {
+      navbar?.classList.remove('scrolled');
+      navbar?.classList.add('transparent');
+    }
+  }
+
+  navbar?.classList.add('transparent');
+  window.addEventListener('scroll', handleScroll);
+});
+
+</script>
+
+
+
+
+<section class="features-section" id="features">
+  <h1 class="feature-title">Our Features</h1>
+
+  <div class="features-row">
+    <div class="feature-card large feature-color-1">
+      <img src="static/f1.jpg" alt="AI Disease Detection">
+      <h2>AI Disease Detection</h2>
+      <p>Upload an image of your plant and let our AI identify diseases with high accuracy and suggest actionable remedies.</p>
+    </div>
+
+    <div class="feature-card small feature-color-2">
+      <img src="static/f2.jpg" alt="IoT Moisture Monitoring">
+      <h2>IoT Moisture Monitoring</h2>
+      <p>Get real-time soil moisture readings from your connected ESP32 device.</p>
+    </div>
+  </div>
+
+  <div class="features-row">
+    <div class="feature-card small feature-color-3">
+      <img src="static/f3.jpg" alt="Smart Watering">
+      <h2>Smart Watering</h2>
+      <p>Automatically activate watering when your plant's moisture drops below the ideal level.</p>
+    </div>
+
+    <div class="feature-card large feature-color-4">
+      <img src="static/f4.jpg" alt="Personalized Care Plans">
+      <h2>Personalized Care Plans</h2>
+      <p>Get condition-specific watering levels and remedies based on your plant's health and species.</p>
+    </div>
+  </div>
+
+  <div class="features-row">
+    <div class="feature-card large feature-color-5">
+      <img src="static/f5.jpg" alt="Progress Tracking">
+      <h2>Progress Tracking</h2>
+      <p>View a detailed history of your plant's health, diagnosis, and treatments over time.</p>
+    </div>
+
+    <div class="feature-card small feature-color-6">
+      <img src="static/f6.jpg" alt="Plant Knowledge Hub">
+      <h2>Plant Knowledge Hub</h2>
+      <p>Access a growing library of plant conditions, symptoms, and care guides right inside the app.</p>
+    </div>
   </div>
 </section>
 
-<style>
-.hero {
-  /* Adjust top margin or padding to push content below navbar */
-  margin-top: 0px; /* Equal to navbar height */
+
   
-  height: calc(100vh - 70px); /* To fill remaining screen if needed */
-  background: url('{{ url_for('static', filename='home.png') }}') no-repeat center center/cover;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-}
 
-.hero .title {
-  font-size: 4rem;
-  font-weight: bold;
-  color: #2e4a2e;
-  font-family: 'Oswald', sans-serif;
-  margin-bottom: 1rem;
-}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".feature-card");
 
-.hero .subtitle {
-  font-size: 1.5rem;
-  color: #000;
-  font-family: 'Cinzel', serif;
-  line-height: 1.6;
-}
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("in-view");
+          }, index * 150); // delay per card
+        }
+      });
+    }, {
+      threshold: 0.3
+    });
 
-@media (max-width: 768px) {
-  .hero .title {
-    font-size: 2.5rem;
-  }
-
-  .hero .subtitle {
-    font-size: 1.1rem;
-  }
-}
-</style>
+    cards.forEach(card => observer.observe(card));
+  });
+</script>
 
 
-<section class="features-section">
-  <a href="/upload" class= "feature-link">
-  <div class="feature-box">
-    <img src="/static/Screenshot 2025-08-30 005239.png" alt="Diagnosis Icon" class="feature-icon">
-    <h3>Diagnosis</h3>
-    <p>Diagnose diseases of your beloved plants using AI made by us</p>
+<section>
+  <div class="speciality-section"  data-index="1">
+    <h2 class="speciality-title">OUR SPECIALITY</h2>
+    <div class="cards-wrapper">
+      
+      <!-- First card -->
+      <div class="speciality-content" data-index="2">
+        <img src="static/s2.png" alt="Gardening tools in wheelbarrow" />
+        <div class="speciality-text">
+          <h3>DIAGNOSE YOUR <br> PLANT DISEASES</h3>
+          <p>Diagnose crop diseases instantly with cutting-edge AI, monitor real-time soil humidity, temperature, and water levels, and receive smart feedback by comparing current conditions with ideal growth requirements—all in one platform. </p>
+        </div>
+      </div>
+
+      <!-- Second card -->
+      <div class="speciality-content purple-bg" data-index="3">
+        <div class="speciality-text">
+          <h3>Know Your Plant better <br> Than Anyone</h3>
+          <p>Learn how to care for your plants like a an expert with detailed guidance tailored to each species, discover growth techniques, and have an experience of thriving greenery with us. Track your plant’s progress with personalized insights and stay ahead of potential issues before they arise. Whether you're a beginner or a seasoned grower, our platform makes plant care rewarding and fun.</p>
+        </div>
+        <img src="static/s1.png" alt="Potted plant" />
+      </div>
+
+      <!-- Third card -->
+      <div class="speciality-content blue-bg" data-index="4">
+        <img src="static/s32.png" alt="Doctor plant image" />
+        <div class="speciality-text">
+          <h3>Be the doctor of your <br> plant yourself</h3>
+          <p>Treat your crops' diseases confidently with expert-recommended remedies, learn how to nurture affected crops back to health, and prevent future outbreaks with proactive care strategies. follow our guides and thrive with your healthy green family.
+</p>
+        </div>
+      </div>
+
+      <!-- New Fourth card -->
+<div class="speciality-content green-bg" data-index="4">
+  <img src="static/s6.png" alt="New plant feature image" />
+  <div class="speciality-text">
+    <h3>build the agricultural structure
+ of the country</h3>
+    <p>Boost agricultural productivity and reduce crop losses with AI-powered diagnostics. Help farmers deal with crop losses strategically and logically. Strangthes food security and increase export potential with our website.</p>
   </div>
-</a>
-  <div class="feature-box">
-    <img src="/static/Screenshot 2025-08-30 005455.png" alt="Remedies Icon" class="feature-icon">
-    <h3>Remedies</h3>
-    <p>Learn how to take care of your plants</p>
-  </div>
+</div>
 
-  <div class="feature-box">
-    <img src="/static/Screenshot 2025-08-30 005516.png" alt="Techniques Icon" class="feature-icon">
-    <h3>Techniques</h3>
-    <p>Get to know about new plants and techniques of gardening</p>
+<!-- Updated: Fifth card (previously fourth) -->
+<div class="speciality-content blue-bg-2" data-index="5">
+  <div class="speciality-text">
+    <h3>Economy With Us</h3>
+    <p>Revolutionize agriculture with our smart platform that empowers farmers to grow more, waste less, and earn better. By boosting crop health and maximizing yield, we fuel stronger exports, reduce economic losses, and drive sustainable growth—making a real impact on the nation’s GDP and future prosperity.</p>
+  </div>
+  <img src="static/s4.png" alt="Economy image" />
+</div>
+
+
+    </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".speciality-content");
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          requestAnimationFrame(() => {
+            entry.target.classList.add("animate");
+          });
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    cards.forEach(card => observer.observe(card));
+  });
+</script>
+
+
+<section class="latest-news-section">
+  <div class="news-heading">
+    <span class="live-dot"></span> Latest News
+  </div>
+
+  <div class="news-ticker">
+    <div class="ticker-wrap">
+      <div class="ticker">
+        🌱 New AI tool to detect plant diseases! 
+        <span class="dot">•</span> 
+        🪴 Smart irrigation tips released! 
+        <span class="dot">•</span> 
+        🌾 Fall season plant care guide is live!
+        <span class="dot">•</span> 
+        🌿 Upgrade your plant doctor tool!
+        <span class="dot">•</span> 
+        🧪 Free soil testing this month!
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
 
 
 <section class="about-section">

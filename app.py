@@ -9,7 +9,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 
 
-ESP32_BASE_URL = "http://192.168.0.105"  # Or use your ESP32's IP
+ESP32_BASE_URL = "http://192.168.1.158"  # Or use your ESP32's IP
 
 
 
@@ -23,7 +23,7 @@ def get_soil_moisture():
         
         # Convert raw ADC to percentage here
         dry_value = 4095
-        wet_value = 1800
+        wet_value = 2000
         
         # Clamp raw value
         raw = max(min(raw, dry_value), wet_value)
@@ -96,8 +96,8 @@ from PIL import Image
 import numpy as np
 
 # Force UTF-8 encoding for Windows console
-sys.stdout.reconfigure(encoding='utf-8')
-sys.stderr.reconfigure(encoding='utf-8')
+#sys.stdout.reconfigure(encoding='utf-8')
+#sys.stderr.reconfigure(encoding='utf-8')
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # change in production
@@ -181,17 +181,25 @@ except Exception as e:
 # Prediction function
 def predict_plant_health(img_path):
     if not model or not labels:
+        print("Model or labels not loaded.")
         return "Unknown", "Model not loaded", 0.0
+
     img = Image.open(img_path).convert('RGB')
     img = img.resize((224, 224))
     x = np.array(img) / 255.0
     x = np.expand_dims(x, axis=0)
+
     preds = model.predict(x)
     idx = np.argmax(preds)
     disease = labels[idx]
     confidence = float(preds[0][idx])
     severity = "Mild" if confidence < 0.7 else "Severe"
+
+    # 🔍 ADD THIS:
+    print(f"[Prediction] Disease: {disease}, Confidence: {confidence:.4f}, Severity: {severity}")
+
     return disease, severity, confidence
+
 
 
 
@@ -230,7 +238,7 @@ def login():
         if row and bcrypt.check_password_hash(row[2], password):
             user = User(row[0], row[1], row[2])
             login_user(user)
-            return redirect(url_for("dashboard"))
+            return redirect(url_for("upload"))
         flash("Invalid credentials!", "danger")
     return render_template("login.html")
 
@@ -252,7 +260,25 @@ def dashboard():
     results_numeric = [1 if "healthy" in r["disease"].lower() else 0 for r in records]
     colors = ["#4caf50" if val==1 else "#f44336" for val in results_numeric]
 
-    return render_template("dashboard.html", history=records, dates=dates, results_numeric=results_numeric, colors=colors)
+    # 🧠 Add this block:
+    healthy = sum(1 for r in records if "healthy" in r["disease"].lower())
+    diseased = sum(1 for r in records if "healthy" not in r["disease"].lower())
+    result_counts = [healthy, diseased]
+
+    return render_template(
+        "dashboard.html",
+        history=records,
+        dates=dates,
+        results_numeric=results_numeric,
+        colors=colors,
+        result_counts=result_counts  # ✅ Now it's passed to the template
+    )
+
+@app.route("/techniques")
+@login_required
+def techniques():
+    return render_template("techniques.html")
+
 
 
 @app.route("/upload", methods=["GET", "POST"])
@@ -403,4 +429,5 @@ def logout():
     return redirect(url_for("login"))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True)  
+

@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Plant Guardian</title>
-    <link rel="icon" type="image/png" href="/static/logo.png">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Plant Guardian</title>
+  <link rel="icon" type="image/png" href="/static/logo.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!--additional design -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
 </head>
 <body>
-    <!-- Navbar -->
+  
+<!-- Navbar -->
 <header class="navbar" id="navbar">
   <!-- Left side: Logo -->
   <div class="navbar-left">
@@ -46,23 +55,694 @@
   </div>
 </header>
 
+
 <script src="static/script.js"></script>
 
 
-    <!-- About Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>About Plant Guardian</h1>
-            <p>
-                Plant Guardian is an innovative system that combines AI and IoT to help users monitor 
-                the health of their plants. Upload a photo of your plant and get instant health analysis.
-                Optionally, connect a soil sensor for more precise insights.
-            </p>
-            <p>
-                Our goal is to empower gardeners and farmers with easy-to-use technology, helping 
-                plants thrive and reduce crop loss. 🌱
-            </p>
-        </div>
-    </section>
+
+
+<main class="about-page">
+
+
+ 
+
+<!-- Hero Section -->
+<section class="hero-clean">
+  <div class="hero-clean-container">
+    <h1 class="hero-title">
+      Grow Smarter<br>
+      <span>With AI-Powered Farming</span>
+    </h1>
+    <p class="hero-subtitle">
+      At PlantGuardian, we blend technology with nature to protect crops, detect plant diseases early, and help farmers cultivate sustainably.
+    </p>
+  </div>
+</section>
+
+
+
+
+
+<!-- Our Mission Section -->
+<section class="mission-section">
+  <div class="mission-container">
+    <header class="mission-header">
+      <span class="accent-line"></span>
+      <h2>Our <em>Mission</em></h2>
+      <p class="mission-subtitle">
+        Empowering farmers with intelligent technology for sustainable and thriving agriculture.
+      </p>
+    </header>
+
+    <div class="mission-content">
+      <div class="mission-text">
+        <p>
+          PlantGuardian combines <strong>AI</strong>, <strong>IoT</strong>, and deep agricultural knowledge to revolutionize crop protection.
+          We enable early threat detection, optimize care, and ensure resource efficiency — all while preserving the environment.
+        </p>
+        <p>
+          Our solutions drive sustainable farming by providing farmers with smart, actionable insights and easy-to-use tools.
+          Together, we’re cultivating a future where technology and nature grow hand in hand.
+        </p>
+      </div>
+
+     <div class="mission-features">
+  <ul>
+    <li>
+      <div class="feature-icon" aria-hidden="true">
+        <!-- Leaf SVG icon -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7fff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8-10-8-10-8z"></path>
+          <line x1="12" y1="2" x2="12" y2="22"></line>
+        </svg>
+      </div>
+      <div class="feature-text">
+        <h3>AI-Powered Detection</h3>
+        <p>Real-time plant disease identification with high precision.</p>
+      </div>
+    </li>
+
+    <li>
+      <div class="feature-icon" aria-hidden="true">
+        <!-- Droplet SVG icon -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7fff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2C8 8 4 12 4 16a8 8 0 0 0 16 0c0-4-4-8-4-14z"></path>
+        </svg>
+      </div>
+      <div class="feature-text">
+        <h3>Smart Irrigation</h3>
+        <p>IoT-controlled watering tailored to each crop’s needs.</p>
+      </div>
+    </li>
+
+    <li>
+      <div class="feature-icon" aria-hidden="true">
+        <!-- Chart SVG icon -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7fff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="20" x2="12" y2="10"></line>
+          <line x1="18" y1="20" x2="18" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="16"></line>
+        </svg>
+      </div>
+      <div class="feature-text">
+        <h3>Data Analytics</h3>
+        <p>Cloud-based insights for improved decision making and yield forecasting.</p>
+      </div>
+    </li>
+
+    <li>
+      <div class="feature-icon" aria-hidden="true">
+        <!-- Book/education SVG icon -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7fff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19h16M4 5h16M4 12h16"></path>
+        </svg>
+      </div>
+      <div class="feature-text">
+        <h3>Farmer Education</h3>
+        <p>User-friendly dashboards and learning resources for all skill levels.</p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+    <div class="mission-cta">
+      <a href="/login" class="btn-primary">Join Our Journey</a>
+    </div>
+  </div>
+
+  <!-- Decorative leaf SVG -->
+  <svg class="leaf-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true" >
+    <path fill="#00f0ff" d="M50 0C35 15 10 45 10 70s20 30 40 30 40-10 40-30S65 15 50 0z"/>
+  </svg>
+</section>
+
+
+ <!-- Purpose Section -->
+<section class="purpose-section">
+  <div class="purpose-container">
+    <div class="purpose-header">
+      <div class="accent-icon" aria-hidden="true">
+        <!-- Modern Leaf Icon SVG -->
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#32CD32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8-10-8-10-8z"></path>
+          <line x1="12" y1="2" x2="12" y2="22"></line>
+        </svg>
+      </div>
+      <h2>Our Purpose</h2>
+    </div>
+    <p class="purpose-text">
+      We exist to <strong>reduce crop loss</strong>, promote <strong>global food security</strong>, and foster innovation that empowers the next generation of sustainable farmers. Our work is rooted in care — for plants, people, and the planet.
+    </p>
+    <p class="purpose-extra">
+      Harnessing cutting-edge AI and IoT technology, we deliver actionable insights that optimize crop health, increase yields, and ensure sustainable practices worldwide.
+    </p>
+  </div>
+
+  <div class="impact-stats">
+    <div class="stat-item">
+      <strong>2M+</strong>
+      <span>Crops Protected</span>
+    </div>
+    <div class="stat-item">
+      <strong>300+</strong>
+      <span>Countries Reached</span>
+    </div>
+    <div class="stat-item">
+      <strong>98%</strong>
+      <span>Detection Accuracy</span>
+    </div>
+    <div class="stat-item">
+      <strong>500M+</strong>
+      <span>Farmers Empowered</span>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Impact Section -->
+<section class="impact-section">
+  <div class="impact-container">
+    <div class="impact-header">
+      <div class="impact-badge" aria-hidden="true"></div>
+      <h2>Our Potential Impact</h2>
+    </div>
+    <p class="impact-text">
+      CropCare is transforming agriculture globally — empowering farmers with cutting-edge technology to protect and nurture crops on an unprecedented scale. Our solutions have already enabled millions of farmers to boost yields, cut losses, and cultivate healthier, more resilient plants — shaping the future of sustainable farming worldwide.
+    </p>
+
+    <div class="impact-stats">
+      <div class="stat-item">
+        <h3>750K+</h3>
+        <p>Active Humanless Fields</p>
+      </div>
+      <div class="stat-item">
+        <h3>2.5M</h3>
+        <p>Daily Data Points Analyzed</p>
+      </div>
+      <div class="stat-item">
+        <h3>85%</h3>
+        <p>Reduction in Crop Disease Outbreaks</p>
+      </div>
+      <div class="stat-item">
+        <h3>40%</h3>
+        <p>Increase in Crop Yields Reported</p>
+      </div>
+      <div class="stat-item">
+        <h3>500+</h3>
+        <p>Global Partner Farms & Communities</p>
+      </div>
+    </div>
+
+    <p class="impact-quote">
+      “CropCare’s intelligent farming platform is redefining agriculture — enabling smarter, greener, and more profitable harvests across continents.”
+    </p>
+  </div>
+</section>
+
+
+
+<section class="tech-timeline-section">
+  <div class="tech-timeline-header">
+    <h2>Technology & Process</h2>
+    <p>A living system of intelligence, sensors, and insights — growing with your farm.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-step">
+      <div class="circle"></div>
+      <div class="content">
+        <h3>AI-Powered Detection</h3>
+        <p>Our AI identifies early-stage plant diseases through image recognition and predictive diagnostics.</p>
+      </div>
+    </div>
+
+    <div class="timeline-step">
+      <div class="circle"></div>
+      <div class="content">
+        <h3>Smart Irrigation</h3>
+        <p>Using IoT and ESP32 microcontrollers, our system optimizes watering based on real-time soil data.</p>
+      </div>
+    </div>
+
+    <div class="timeline-step">
+      <div class="circle"></div>
+      <div class="content">
+        <h3>Cloud Analytics</h3>
+        <p>All data is stored securely in the cloud, enabling insights, trends, and recommendations over time.</p>
+      </div>
+    </div>
+
+    <div class="timeline-step">
+      <div class="circle"></div>
+      <div class="content">
+        <h3>Farmer Dashboard</h3>
+        <p>A unified interface where farmers manage everything — alerts, insights, irrigation, and learning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Future Plans Section -->
+<section class="future-plans">
+  <div class="future-header">
+    <h2>Future Plans</h2>
+    <p>
+      We’re shaping a world where agriculture is smart, sustainable, and accessible — powered by nature and nurtured by technology.
+    </p>
+  </div>
+
+  <div class="future-panel leaf">
+    <div class="panel-content">
+      <h3>Global Expansion</h3>
+      <p>From pilot projects to large-scale farm integrations across Asia, Africa, and Latin America.</p>
+    </div>
+  </div>
+
+  <div class="future-panel moss">
+    <div class="panel-content">
+      <h3>Satellite & Drone Imaging</h3>
+      <p>Precision mapping and crop monitoring using aerial and multispectral technology.</p>
+    </div>
+  </div>
+
+  <div class="future-panel fern">
+    <div class="panel-content">
+      <h3>AI Crop Advisor</h3>
+      <p>Smart virtual assistant for farmers — real-time alerts, decisions, and diagnostics via voice/chat.</p>
+    </div>
+  </div>
+
+  <div class="future-panel sage">
+    <div class="panel-content">
+      <h3>5G & Edge Computing</h3>
+      <p>Faster syncing and real-time data collection in rural areas through mesh networks and micro-hubs.</p>
+    </div>
+  </div>
+
+  <div class="future-panel moss">
+    <div class="panel-content">
+      <h3>Soil Intelligence</h3>
+      <p>Microbiome mapping and AI analysis for regenerative and tailored soil care strategies.</p>
+    </div>
+  </div>
+
+  <div class="future-panel leaf">
+    <div class="panel-content">
+      <h3>Carbon Tracking</h3>
+      <p>Live CO₂ sequestration metrics and sustainability scoring per field, crop, and season.</p>
+    </div>
+  </div>
+
+  <div class="future-panel fern">
+    <div class="panel-content">
+      <h3>Farmer Co-Design</h3>
+      <p>Product roadmaps shaped directly by farmer feedback and on-ground collaboration.</p>
+    </div>
+  </div>
+
+  <div class="future-panel sage">
+    <div class="panel-content">
+      <h3>Open Agri API</h3>
+      <p>Developer-friendly interfaces to build 3rd-party tools, automation, and analytics on our platform.</p>
+    </div>
+  </div>
+
+  <div class="future-panel moss">
+    <div class="panel-content">
+      <h3>Multilingual Voice App</h3>
+      <p>Fully offline-capable, voice-first mobile app in multiple regional languages.</p>
+    </div>
+  </div>
+
+  <div class="future-panel leaf">
+    <div class="panel-content">
+      <h3>Global Pilot Farms</h3>
+      <p>Real-world testing environments in diverse climates for innovation at scale.</p>
+    </div>
+  </div>
+
+  <div class="future-panel fern">
+    <div class="panel-content">
+      <h3>Farm-to-Market Insights</h3>
+      <p>Yield predictions tied directly to market demand, logistics, and pricing intelligence.</p>
+    </div>
+  </div>
+
+  <div class="future-panel sage">
+    <div class="panel-content">
+      <h3>Genomic Crop Matching</h3>
+      <p>Linking plant DNA to optimized treatment, irrigation, and nutrient pathways.</p>
+    </div>
+  </div>
+
+  <div class="future-panel moss">
+    <div class="panel-content">
+      <h3>Weather + Pest Forecasting</h3>
+      <p>Hyper-local models predicting threats days or weeks in advance, powered by AI and climate data.</p>
+    </div>
+  </div>
+
+  <div class="future-panel fern">
+    <div class="panel-content">
+      <h3>Agri-Education Partnerships</h3>
+      <p>Collaborating with agri-universities, NGOs, and government programs to scale impact.</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Team Section -->
+<section class="team-showcase">
+  <div class="team-intro">
+    <h2>Meet the <em>Team</em></h2>
+    <p>Rooted in science, blooming with AI. Our team nurtures ideas into impactful agricultural innovation.</p>
+  </div>
+
+  <!-- Mentor -->
+  <div class="mentor-card">
+    <div class="member-card mentor">
+      <img src="static/images/mentor.jpg" alt="MD. MAHFUZUR RAHMAN">
+      <div class="member-info">
+        <h3>MD. MAHFUZUR RAHMAN</h3>
+        <span class="badge mentor-badge">Mentor</span>
+        <p class="pronouns">he/him</p>
+        <a href="#" class="linkedin">LinkedIn</a>
+        <p class="role">Lecturer & Innovation Strategist</p>
+        <p class="bio">Guides the team with vision and experience. Passionate about enabling youth-driven tech in sustainable agriculture.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Members -->
+  <div class="member-row">
+
+    <!-- Lead -->
+    <div class="member-card">
+      <img src="static/images/member1.jpg" alt="Tahsin Hasan Shan">
+      <div class="member-info">
+        <h3>Tahsin Hasan Shan</h3>
+        <span class="badge">Project Lead</span>
+        <p class="pronouns">he/him</p>
+        <a href="#" class="linkedin">LinkedIn</a>
+        <p class="role">AI Developer & Systems Architect</p>
+        <p class="bio">Oversees project execution and models plant disease detection pipelines for real-time diagnosis.</p>
+      </div>
+    </div>
+
+    <!-- Designer -->
+    <div class="member-card">
+      <img src="static/images/member2.jpg" alt="Wahida Salmin Adiba">
+      <div class="member-info">
+        <h3>Wahida Salmin Adiba</h3>
+        <span class="badge">Design Lead</span>
+        <p class="pronouns">she/her</p>
+        <a href="#" class="linkedin">LinkedIn</a>
+        <p class="role">UI/UX Designer & Brand Strategist</p>
+        <p class="bio">Builds empathetic user experiences for farmers, turning complex tech into simple tools.</p>
+      </div>
+    </div>
+
+    <!-- IoT Engineer -->
+    <div class="member-card">
+      <img src="static/images/member3.png" alt="Rihan Sami">
+      <div class="member-info">
+        <h3>Rihan Sami</h3>
+        <span class="badge">IoT Engineer</span>
+        <p class="pronouns">he/him</p>
+        <a href="#" class="linkedin">LinkedIn</a>
+        <p class="role">Field Device Specialist</p>
+        <p class="bio">Integrates hardware with nature. Deploys sensors and microcontrollers that talk to our cloud systems.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+  <!-- Gallery Section -->
+  <!-- We and our Work Section -->
+<!-- We and our Work Section -->
+<section class="our-work">
+  <div class="container">
+    <h2>We and our <em>Work</em></h2>
+    <p class="section-subtext">Snapshots from the field, the lab, and the future of farming.</p>
+
+    <div class="work-grid">
+      <!-- You can repeat or shuffle the sizes -->
+      <div class="work-item tall"><img src="static/images/demo1.jpg" alt="Demo 1"></div>
+      <div class="work-item wide"><img src="static/images/demo2.jpg" alt="Demo 2"></div>
+      <div class="work-item"><img src="static/images/demo3.jpg" alt="Demo 3"></div>
+      <div class="work-item tall"><img src="static/images/demo4.jpg" alt="Demo 4"></div>
+      <div class="work-item wide"><img src="static/images/demo5.jpg" alt="Demo 5"></div>
+      <div class="work-item"><img src="static/images/demo6.jpg" alt="Demo 6"></div>
+
+      <!-- Add more... -->
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.work-item');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    items.forEach(item => {
+      observer.observe(item);
+    });
+  });
+</script>
+
+
+
+  <!-- Process Section with Animated Waves -->
+    <h1 class="process-header">Our Process</h1>
+<section class="process-section">
+  
+  <canvas id="waveCanvas"></canvas>
+
+  <div class="process-container">
+    <div class="process">
+      <img src="https://via.placeholder.com/140" alt="Step 1">
+      <div class="process-text">
+        <h3>Step 1</h3>
+        <p>This is the first step of the process.</p>
+      </div>
+    </div>
+
+    <div class="process">
+      <img src="https://via.placeholder.com/140" alt="Step 2">
+      <div class="process-text">
+        <h3>Step 2</h3>
+        <p>This is the second step of the process.</p>
+      </div>
+    </div>
+
+    <div class="process">
+      <img src="https://via.placeholder.com/140" alt="Step 3">
+      <div class="process-text">
+        <h3>Step 3</h3>
+        <p>This is the third step of the process.</p>
+      </div>
+    </div>
+
+    <div class="process">
+      <img src="https://via.placeholder.com/140" alt="Step 4">
+      <div class="process-text">
+        <h3>Step 4</h3>
+        <p>This is the fourth step of the process.</p>
+      </div>
+    </div>
+
+    <div class="process">
+      <img src="https://via.placeholder.com/140" alt="Step 5">
+      <div class="process-text">
+        <h3>Step 5</h3>
+        <p>This is the final step of the process.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.process-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 80px 0;
+  background: transparent;
+}
+.process-header {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0px;
+  position: relative;
+  z-index: 1;
+  color: #333;
+}
+#waveCanvas {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+.process-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 100px;                      /* Increased space between items */
+  padding: 0 60px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE 10+ */
+  z-index: 1;
+  position: relative;
+}
+
+/* Hide scrollbar - Chrome, Safari, Opera */
+.process-container::-webkit-scrollbar {
+  display: none;
+}
+
+.process {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  width: 400px;                    /* Increased width */
+  background: transparent;
+}
+
+.process img {
+  width: 140px;                    /* Bigger image */
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 30px;              /* More space between image and text */
+  flex-shrink: 0;
+}
+
+.process-text {
+  text-align: left;
+  color: #333;
+  font-size: 1.1rem;               /* Optional: slightly larger text */
+}
+</style>
+
+<script>
+const canvas = document.getElementById("waveCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = 200;
+
+function drawWave(offset, color, size, speed, blur = 0) {
+  ctx.fillStyle = color;
+  ctx.shadowBlur = blur;
+  ctx.shadowColor = color;
+
+  for (let x = 0; x < canvas.width; x += 16) {
+    const y = canvas.height / 2 + Math.sin((x + offset) * 0.02) * size;
+    ctx.beginPath();
+    ctx.arc(x, y, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+let offset1 = 0;
+let offset2 = 0;
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Main sharp wave
+  drawWave(offset1, "#888", 35, 0.6, 0);
+
+  // Blurry background wave
+  drawWave(offset2, "rgba(150,150,150,0.6)", 55, 0.3, 8);
+
+  offset1 += 1.2;
+  offset2 += 0.6;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+});
+</script>
+
+
+
+
+</main>
+
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h3>CROPCARE</h3>
+      <p>Empowering smart and sustainable gardening with AI.</p>
+    </div>
+
+    <div class="footer-middle">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/upload">Diagnosis</a></li>
+        <li><a href="#">Remedies</a></li>
+        <li><a href="#">Techniques</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-right">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/shan_udhao/"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 CROPCARE. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
 </body>
 </html>

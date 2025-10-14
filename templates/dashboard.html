@@ -5,37 +5,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Plant Guardian</title>
   <link rel="icon" type="image/png" href="/static/logo.png">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* Sticky top navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: #003300;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo-icon {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .user-icon img {
+      height: 32px;
+      border-radius: 50%;
+      margin-left: 20px;
+    }
+
+    body {
+      padding-top: 80px; /* prevents navbar overlap */
+      background-color: #f8f9fa;
+    }
+
+    .card-title {
+      font-weight: bold;
+    }
+
+    .card .card-text {
+      font-size: 2rem;
+    }
+
+    .card-header small {
+      font-size: 0.85rem;
+    }
+
+    .card h6 {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f4f4f4;
+}
+
+  </style>
 </head>
+
 <body>
+
 <!-- Navbar -->
-<header class="navbar" id="navbar">
-  <!-- Left side: Logo -->
-  <div class="navbar-left">
+<header class="navbar">
+  <!-- Left: Logo -->
   <a href="/" class="logo">
     <img src="/static/logo.png" alt="CropCare Logo" class="logo-icon" />
     <span class="logo-text">CROPCARE</span>
   </a>
-</div>
 
-
-  <!-- Hamburger Icon for Mobile -->
-  <div class="hamburger" onclick="toggleMenu()">
-    &#9776;
-  </div>
-
-  <!-- Right side: Nav + User Icon -->
-  <div class="navbar-right" id="navbarMenu">
-    <nav class="nav-links">
-      <a href="/">HOME</a>
-      <a href="/about">ABOUT</a>
+  <!-- Right: Navigation -->
+  <div class="navbar-right d-flex align-items-center">
+    <nav class="nav-links d-none d-md-flex">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
       {% if current_user.is_authenticated %}
-        <a href="/upload">DIAGNOSE</a>
-        <a href="/plantcare">PLANTCARE</a>
-        <a href="/techniques">TECHNIQUES</a>
+        <a href="/upload">Diagnose</a>
+        <a href="/plantcare">Plant Care</a>
+        <a href="/techniques">Techniques</a>
       {% else %}
-        <a href="/login">LOGIN</a>
+        <a href="/login">Login</a>
       {% endif %}
     </nav>
 
@@ -43,40 +130,173 @@
       <a href="/dashboard" class="user-icon" title="Dashboard">
         <img src="/static/user-logo.png" alt="User Dashboard" />
       </a>
+      <form action="/logout" method="POST" class="ms-3 mb-0">
+        <button type="submit" class="btn btn-sm btn-outline-light">Logout</button>
+      </form>
     {% endif %}
   </div>
 </header>
-<script src="static/script.js"></script>
 
+<div class="container py-5">
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Welcome, {{ current_user.username }}!</h1>
-      <p>Recent Plant Health Overview:</p>
+  <h2 class="mb-5 text-center fw-semibold text-dark">Plant Guardian Dashboard</h2>
 
-      <canvas id="dashboardChart" width="400" height="200"></canvas>
-
-
-
-      <script>
-        const ctx = document.getElementById('dashboardChart').getContext('2d');
-        const dashboardChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: {{ dates|tojson }},
-            datasets: [{
-              label: 'Plant Health (1=Healthy, 0=Diseased)',
-              data: {{ results_numeric|tojson }},
-              backgroundColor: {{ colors|tojson }},
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: { y: { beginAtZero: true, max: 1 } }
-          }
-        });
-      </script>
+  <!-- Summary Cards -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="card text-white bg-success h-100 shadow-sm text-center">
+        <div class="card-body py-4">
+          <h6 class="text-uppercase">Healthy Plants</h6>
+          <p class="display-6 fw-bold mb-0">{{ result_counts[0] }}</p>
+          <small>Total healthy scans</small>
+        </div>
+      </div>
     </div>
-  </section>
+
+    <div class="col-md-3">
+      <div class="card text-white bg-danger h-100 shadow-sm text-center">
+        <div class="card-body py-4">
+          <h6 class="text-uppercase">Diseased Plants</h6>
+          <p class="display-6 fw-bold mb-0">{{ result_counts[1] }}</p>
+          <small>Total diseased scans</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card bg-info text-white h-100 shadow-sm text-center">
+        <div class="card-body py-4">
+          <h6 class="text-uppercase">Total Scans</h6>
+          <p class="display-6 fw-bold mb-0">{{ result_counts[0] + result_counts[1] }}</p>
+          <small>All-time</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card bg-warning text-dark h-100 shadow-sm text-center">
+        <div class="card-body py-4">
+          <h6 class="text-uppercase">Last Scan Date</h6>
+          <p class="fs-4 fw-semibold mb-0">{{ dates[-1] if dates else "N/A" }}</p>
+          <small>Most recent scan</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Health Over Time Chart -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Plant Health Over Time</h5>
+      <small>1 = Healthy, 0 = Diseased</small>
+    </div>
+    <div class="card-body">
+      <canvas id="healthChart" height="100"></canvas>
+    </div>
+  </div>
+
+  <!-- Analysis History Table -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Recent Analysis History</h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Date</th>
+              <th>Disease</th>
+              <th>Severity</th>
+              <th>Remedy</th>
+              <th>Image</th>
+              <th>Report</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in history %}
+            <tr>
+              <td>{{ row.date }}</td>
+              <td>{{ row.disease }}</td>
+              <td>
+                <span class="badge {% if row.severity == 'Severe' %}bg-danger{% else %}bg-warning text-dark{% endif %}">
+                  {{ row.severity }}
+                </span>
+              </td>
+              <td>{{ row.remedy[:60] }}{% if row.remedy|length > 60 %}...{% endif %}</td>
+              <td>
+                {% if row.photo %}
+                <img src="{{ url_for('static', filename='uploads/' ~ row.photo) }}" width="60" class="img-thumbnail rounded">
+                {% else %}
+                <span class="text-muted">No image</span>
+                {% endif %}
+              </td>
+              <td>
+                <a href="{{ url_for('report', record_id=row.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="6" class="text-center py-4 text-muted">No analysis history found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="p-3 text-end">
+        <a href="{{ url_for('history') }}" class="btn btn-outline-secondary">View Full History</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js Script -->
+<canvas id="healthChart"></canvas>
+
+<script>
+  const ctx = document.getElementById('healthChart').getContext('2d');
+
+  const labels = {{ dates|tojson }};
+  const dataPoints = {{ results_numeric|tojson }};
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Plant Status (1 = Healthy, 0 = Diseased)',
+          data: dataPoints,
+          borderColor: '#4caf50',
+          backgroundColor: 'rgba(76, 175, 80, 0.2)',
+          tension: 0.3,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          fill: true
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 1
+        }
+      },
+      responsive: true,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              return ctx.dataset.label + ': ' + (ctx.parsed.y === 1 ? 'Healthy' : 'Diseased');
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+
+
 </body>
 </html>
