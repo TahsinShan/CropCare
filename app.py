@@ -399,11 +399,7 @@ def plant_info(condition_name):
 
 
 
-        
-
-
-
-
+    
 
  
 @app.route("/history")
@@ -421,6 +417,29 @@ def history():
     result_counts = [healthy, diseased]
 
     return render_template("history.html", history=records, result_counts=result_counts)
+
+@app.route("/history/delete/<int:record_id>", methods=["POST"])
+@login_required
+def delete_history(record_id):
+    conn = sqlite3.connect("plantguardian.db")
+    c = conn.cursor()
+
+    # Ensure the record belongs to the current user for security
+    c.execute("SELECT * FROM history WHERE id=? AND user_id=?", (record_id, current_user.id))
+    record = c.fetchone()
+
+    if record:
+        c.execute("DELETE FROM history WHERE id=?", (record_id,))
+        conn.commit()
+        flash("History record deleted successfully.", "success")
+    else:
+        flash("Record not found or not authorized.", "danger")
+
+    conn.close()
+    return redirect(url_for("history"))
+
+
+
 
 @app.route("/logout")
 @login_required
