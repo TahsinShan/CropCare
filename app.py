@@ -429,5 +429,11 @@ def logout():
     return redirect(url_for("login"))
 
 if __name__ == "__main__":
-    app.run(debug=True)  
+    # Render sets the PORT environment variable automatically
+    port = int(os.environ.get("PORT", 5000))  # Default to 5000 for local
+    app.run(
+        debug=os.environ.get("FLASK_ENV") != "production",  # Debug if not in production
+        host="0.0.0.0",
+        port=port
+    )
 
